@@ -5,13 +5,17 @@ lab:
 
 # Migrate SQL Server databases to SQL Server on Azure Virtual Machine
 
-With the Azure OpenAI Service, developers can create chatbots, language models, and other applications that excel at understanding natural human language. The Azure OpenAI provides access to pre-trained AI models, as well as a suite of APIs and tools for customizing and fine-tuning these models to meet the specific requirements of your application. In this exercise, you'll learn how to deploy a model in Azure OpenAI and use it in your own application to summarize text.
+With the Azure OpenAI Service, developers can create chatbots, language models, and other applications that excel at understanding natural human language. The Azure OpenAI provides access to pre-trained AI models, as well as a suite of APIs and tools for customizing and fine-tuning these models to meet the specific requirements of your application. 
+
+In this exercise, you'll learn how to deploy a model in Azure OpenAI and use it in your own application to summarize text.
+
+In this exercise, you'll learn how to migrate a SQL Server database to a SQL Server running on an Azure Virtual Machine using the Azure migration extension for Azure Data Studio. You'll start by installing and launching the Azure migration extension for Azure Data Studio. Then, you'll perform an online migration of a SQL Server database to a SQL Server running on an Azure Virtual Machine. You'll also learn how to monitor the migration process on the Azure portal and complete the cutover process to finalize the migration.
 
 This exercise will take approximately **30** minutes.
 
 ## Before you start
 
-You will need an Azure subscription and a SQL Server on Azure Virtual Machine resource.
+You'll need an Azure subscription and a SQL Server on Azure Virtual Machine resource.
 
 - To sign up for a free Azure subscription, visit [https://azure.microsoft.com/free](https://azure.microsoft.com/free).
 - To review the steps to provision a SQL Server on Azure Virtual Machine, visit [Quickstart: Create SQL Server on a Windows virtual machine in the Azure portal](https://learn.microsoft.com/azure/azure-sql/virtual-machines/windows/sql-vm-create-portal-quickstart).
@@ -30,7 +34,7 @@ To install the migration extension, follow these steps:
 
 ## Perform an online migration of a SQL Server database to a SQL Server running on an Azure Virtual Machine
 
-To perform a minimal downtime migration using Azure Data Studio, follow these high-level steps:
+To perform a minimal downtime migration using Azure Data Studio, follow these steps:
 
 1. Launch the Migrate to Azure SQL wizard within the extension in Azure Data Studio.
 
