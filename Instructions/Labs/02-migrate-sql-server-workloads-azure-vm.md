@@ -5,10 +5,6 @@ lab:
 
 # Migrate SQL Server databases to SQL Server on Azure Virtual Machine
 
-With the Azure OpenAI Service, developers can create chatbots, language models, and other applications that excel at understanding natural human language. The Azure OpenAI provides access to pre-trained AI models, as well as a suite of APIs and tools for customizing and fine-tuning these models to meet the specific requirements of your application. 
-
-In this exercise, you'll learn how to deploy a model in Azure OpenAI and use it in your own application to summarize text.
-
 In this exercise, you'll learn how to migrate a SQL Server database to a SQL Server running on an Azure Virtual Machine using the Azure migration extension for Azure Data Studio. You'll start by installing and launching the Azure migration extension for Azure Data Studio. Then, you'll perform an online migration of a SQL Server database to a SQL Server running on an Azure Virtual Machine. You'll also learn how to monitor the migration process on the Azure portal and complete the cutover process to finalize the migration.
 
 This exercise will take approximately **30** minutes.
