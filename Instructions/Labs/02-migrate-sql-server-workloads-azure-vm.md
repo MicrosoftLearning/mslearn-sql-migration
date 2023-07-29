@@ -86,7 +86,7 @@ To perform a minimal downtime migration using Azure Data Studio, follow these hi
 
 1. Verify that all log backups have been restored on the target database. The **Log backups pending restore** value should be zero. This step will complete the migration.
 
-    :::image type="content" border="false" source="../media/3-dashboard-details-cutover-extension.png" alt-text="Screenshot of the migration cutover option on Azure migration extension for Azure Data Studio.":::
+    ![Screenshot of the migration cutover option on Azure migration extension for Azure Data Studio.](../media/3-dashboard-details-cutover-extension.png)
 
 1. The migration status property will change to **Completing**, then to **Succeeded** after the migration is completed.
 
