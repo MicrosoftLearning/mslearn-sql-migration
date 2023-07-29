@@ -1,25 +1,14 @@
 ---
-title: Online Hosted Instructions
+title: Azure OpenAI Exercises
 permalink: index.html
 layout: home
 ---
 
-# Content Directory
+# SQL Server migration exercises
 
-Hyperlinks to each of the lab exercises and demos are listed below.
-
-## Labs
+The following exercises are designed to support the modules in the [Migrate SQL Server workloads to Azure SQL](https://learn.microsoft.com/training/paths/migrate-sql-workloads-azure/) learning path on Microsoft Learn.
 
 {% assign labs = site.pages | where_exp:"page", "page.url contains '/Instructions/Labs'" %}
-| Module | Lab |
-| --- | --- | 
-{% for activity in labs  %}| {{ activity.lab.module }} | [{{ activity.lab.title }}{% if activity.lab.type %} - {{ activity.lab.type }}{% endif %}]({{ site.github.url }}{{ activity.url }}) |
-{% endfor %}
-
-## Demos
-
-{% assign demos = site.pages | where_exp:"page", "page.url contains '/Instructions/Demos'" %}
-| Module | Demo |
-| --- | --- | 
-{% for activity in demos  %}| {{ activity.demo.module }} | [{{ activity.demo.title }}]({{ site.github.url }}{{ activity.url }}) |
+{% for activity in labs  %}
+- [{{ activity.lab.title }}]({{ site.github.url }}{{ activity.url }})
 {% endfor %}
