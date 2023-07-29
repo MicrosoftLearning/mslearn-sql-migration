@@ -66,7 +66,7 @@ To perform a minimal downtime migration using Azure Data Studio, follow these hi
 
 1. Select the database name to get further details.
 
-    :::image type="content" border="false" source="../media/3-dashboard-details.png" alt-text="Screenshot of Azure SQL target configuration on the Azure migration extension for Azure Data Studio.":::
+    ![Screenshot of the migration details on the Azure migration extension for Azure Data Studio.](../media/3-dashboard-details.png)
 
 ## Monitor migration on Azure portal
 
