@@ -47,7 +47,7 @@ To perform a minimal downtime migration using Azure Data Studio, follow these hi
 
 1. On **Step 3: Azure SQL target**, select an Azure account and your target SQL Server on Azure Virtual Machine.
 
-    :::image type="content" border="false" source="../media/3-step-azure-sql-target.png" alt-text="Screenshot of Azure SQL target configuration on the Azure migration extension for Azure Data Studio.":::
+    ![Screenshot of Azure SQL target configuration on the Azure migration extension for Azure Data Studio.](../media/3-step-azure-sql-target.png)
 
 1. On **Step 4: Azure Database Migration Service**, create a new Azure Database Migration Service using the Azure Data Studio wizard. If you have previously created one, you can reuse it. Alternatively, you can create an Azure Database Migration Service resource through the Azure portal.
 
@@ -62,7 +62,7 @@ To perform a minimal downtime migration using Azure Data Studio, follow these hi
 
 1. Select **Database migrations in progress** in the migration dashboard to view ongoing migrations. 
 
-    :::image type="content" border="false" source="../media/3-data-migration-dashboard.png" alt-text="Screenshot of Azure SQL target configuration on the Azure migration extension for Azure Data Studio.":::
+    ![Screenshot of the migration dashboard on the Azure migration extension for Azure Data Studio.](../media/3-data-migration-dashboard.png)
 
 1. Select the database name to get further details.
 
@@ -72,8 +72,8 @@ To perform a minimal downtime migration using Azure Data Studio, follow these hi
 
 1. Alternatively, you can also monitor the migration activity using Azure Database Migration Service. 
 
-    :::image type="content" border="false" source="../media/3-dms-azure-portal.png" alt-text="Screenshot of Azure SQL target configuration on the Azure migration extension for Azure Data Studio.":::
-
+    ![Screenshot of the monitoring page in Azure Database Migration Services in Azure portal.](../media/3-dms-azure-portal.png)
+    
 ## Complete the cutover process
 
 1. Stop all incoming transactions to the source database.
@@ -82,7 +82,7 @@ To perform a minimal downtime migration using Azure Data Studio, follow these hi
 
 1. Select **Complete cutover** in the monitoring page.
 
-    :::image type="content" border="false" source="../media/3-dashboard-details-cutover.png" alt-text="Screenshot of the migration cutover option on Azure migration extension for Azure Data Studio.":::
+    ![Screenshot of the migration cutover option on Azure migration extension for Azure Data Studio.](../media/3-dashboard-details-cutover.png)
 
 1. Verify that all log backups have been restored on the target database. The **Log backups pending restore** value should be zero. This step will complete the migration.
 
