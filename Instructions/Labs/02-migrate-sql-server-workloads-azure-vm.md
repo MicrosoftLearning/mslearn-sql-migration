@@ -9,12 +9,17 @@ In this exercise, you'll learn how to migrate a SQL Server database to a SQL Ser
 
 This exercise will take approximately **30** minutes.
 
+> [!NOTE]
+> To complete this exercise, you need access to an Azure subscription to create Azure resources. If you don't have an Azure subscription, create a [free account](https://azure.microsoft.com/free/?azure-portal=true) before you begin.
+>
+> If you choose to perform this exercise in this module, be aware that you might incur costs in your Azure Subscription.
+
 ## Before you start
 
-You'll need an Azure subscription and a SQL Server on Azure Virtual Machine resource.
+To run this exercise, ensure you have the following prerequisites in place before proceeding:
 
-- To sign up for a free Azure subscription, visit [https://azure.microsoft.com/free](https://azure.microsoft.com/free).
-- To review the steps to provision a SQL Server on Azure Virtual Machine, visit [Quickstart: Create SQL Server on a Windows virtual machine in the Azure portal](https://learn.microsoft.com/azure/azure-sql/virtual-machines/windows/sql-vm-create-portal-quickstart).
+- Provision a SQL Server on Azure Virtual Machine, visit [Quickstart: Create SQL Server on a Windows virtual machine in the Azure portal](https://learn.microsoft.com/azure/azure-sql/virtual-machines/windows/sql-vm-create-portal-quickstart).
+- SQL Server 2022 with the latest [**AdventureWorks**](https://learn.microsoft.com/sql/samples/adventureworks-install-configure) database. 
 
 ## Install and launch the Azure migration extension for Azure Data Studio
 
