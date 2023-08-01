@@ -19,7 +19,7 @@ This exercise will take approximately **30** minutes.
 To run this exercise, ensure you have the following prerequisites in place before proceeding:
 
 - Provision a SQL Server on Azure Virtual Machine, visit [Quickstart: Create SQL Server on a Windows virtual machine in the Azure portal](https://learn.microsoft.com/azure/azure-sql/virtual-machines/windows/sql-vm-create-portal-quickstart).
-- SQL Server 2022 with the latest [**AdventureWorks**](https://learn.microsoft.com/sql/samples/adventureworks-install-configure) database. 
+- SQL Server 2022 with the latest lightweight [**AdventureWorks**](https://learn.microsoft.com/sql/samples/adventureworks-install-configure) database. 
 
 ## Install and launch the Azure migration extension for Azure Data Studio
 
