@@ -9,10 +9,7 @@ In this exercise, you'll learn how to migrate a SQL Server database to a SQL Ser
 
 This exercise will take approximately **30** minutes.
 
-> [!NOTE]
-> To complete this exercise, you need access to an Azure subscription to create Azure resources. If you don't have an Azure subscription, create a [free account](https://azure.microsoft.com/free/?azure-portal=true) before you begin.
->
-> If you choose to perform this exercise in this module, be aware that you might incur costs in your Azure Subscription.
+> **Note**: To complete this exercise, you need access to an Azure subscription to create Azure resources. If you don't have an Azure subscription, create a [free account](https://azure.microsoft.com/free/?azure-portal=true) before you begin.
 
 ## Before you start
 
@@ -40,15 +37,14 @@ To perform a minimal downtime migration using Azure Data Studio, follow these st
 1. Launch the Migrate to Azure SQL wizard within the extension in Azure Data Studio.
 
 1. On **Step 1: Databases for assessment**, select the database you want to migrate, then select **Next**.
-    >[!TIP]
-    > It's recommended to collect performance data and get right-sized Azure recommendations.
+    
+    > **Note**: It's recommended to collect performance data and get right-sized Azure recommendations.
 
 1. On **Step 2: Assessment results and recommendations**, wait for the assessment to complete, then select **SQL Server on Azure Virtual Machine** as the **Azure SQL** target.
 
 1. At the bottom of the **Step 2: Assessment results and recommendations** page, select **View/Select** to view the assessment results. Select the database to migrate. 
 
-    >[!TIP]
-    > Take a moment to review the assessment results on the right side.
+    > **Note**: Take a moment to review the assessment results on the right side.
 
 1. On **Step 3: Azure SQL target**, select an Azure account and your target SQL Server on Azure Virtual Machine.
 
@@ -56,10 +52,7 @@ To perform a minimal downtime migration using Azure Data Studio, follow these st
 
 1. On **Step 4: Azure Database Migration Service**, create a new Azure Database Migration Service using the Azure Data Studio wizard. If you have previously created one, you can reuse it. Alternatively, you can create an Azure Database Migration Service resource through the Azure portal.
 
-    >[!IMPORTANT]
-    > Make sure the subscription is registered to use the **Microsoft.DataMigration** namespace. 
-    >
-    > To learn how to perform a resource provider registration, see [Register the resource provider](https://learn.microsoft.com/azure/dms/quickstart-create-data-migration-service-portal#register-the-resource-provider).
+    > **Note**: Make sure the subscription is registered to use the **Microsoft.DataMigration** namespace. To learn how to perform a resource provider registration, see [Register the resource provider](https://learn.microsoft.com/azure/dms/quickstart-create-data-migration-service-portal#register-the-resource-provider).
 
 1. On **Step 5: Data source configuration**, select the location of your database backups, either on an on-premises network share or in an Azure Blob Storage container.
 
@@ -95,8 +88,7 @@ To perform a minimal downtime migration using Azure Data Studio, follow these st
 
 1. The migration status property will change to **Completing**, then to **Succeeded** after the migration is completed.
 
-    >[!NOTE]
-    > You can complete the cutover using similar steps with Azure Database Migration Service through the Azure portal.
+    > **Note**: You can complete the cutover using similar steps with Azure Database Migration Service through the Azure portal.
 
 1. Make application configuration changes to point to the new database running on Azure Virtual Machine.
 
