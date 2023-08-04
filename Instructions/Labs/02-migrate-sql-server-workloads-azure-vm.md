@@ -35,7 +35,7 @@ The purpose of creating an Azure Storage Account is to store the full and transa
 1. Leave all remaining options as their default values.
 1. Select **Review + create**, then select **Create**.
 
-Once the storage account is created, you can create a container in it by following these steps:
+Once the storage account is created, you can create a container by following these steps:
 
 1. In the Azure portal, navigate to your newly created storage account.
 1. In the left menu for the storage account, scroll to **Blob service** and select **Containers**.
