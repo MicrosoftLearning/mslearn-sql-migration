@@ -17,7 +17,7 @@ To run this exercise, you'll need:
 
 | Item | Description |
 | --- | --- |
-| **Target Server** | A SQL Server on Azure Virtual Machine. To learn more, visit [Provision a SQL Server on an Azure Virtual Machine](https://microsoftlearning.github.io/dp-300-database-administrator/Instructions/Labs/01-provision-sql-vm.html) |
+| **Target Server** | A SQL Server on an Azure Virtual Machine. To learn more, visit [Provision a SQL Server on an Azure Virtual Machine](https://microsoftlearning.github.io/dp-300-database-administrator/Instructions/Labs/01-provision-sql-vm.html). **Note:** The SQL Server version between target and server must be the same. |
 | **Source Server** | The latest [SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) version installed on a server of your choice. |
 | **Source Database** | The lightweight [AdventureWorks](https://learn.microsoft.com/sql/samples/adventureworks-install-configure) database to be restored on the SQL Server 2022 instance. |
 
@@ -127,6 +127,8 @@ Alternatively, you can also monitor the migration activity using Azure Database 
 1. The migration status property will change to **Completing**, then to **Succeeded** after the migration is completed.
 
     > **Note**: You can complete the cutover using similar steps with Azure Database Migration Service through the Azure portal.
+
+1. After the status is **Succeeded**, navigate to the target server, and validate the target database. Check the database schema and data.
 
 You’ve learned how to migrate a SQL Server database to a SQL Server running on an Azure Virtual Machine using the Azure migration extension for Azure Data Studio. You’ve also learned how to complete the cutover process to finalize the migration. This ensures that all data has been successfully migrated and that the new database is fully operational. Once the cutover process is complete, you can start using your new SQL Server database running on an Azure Virtual Machine. 
 
