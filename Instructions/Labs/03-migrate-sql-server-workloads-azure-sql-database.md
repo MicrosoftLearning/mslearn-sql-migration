@@ -93,7 +93,9 @@ Let's enable access to Azure SQL Database
 Before start using the Azure migration extension, let's connect to the target database.
 
 1. Launch Azure Data Studio.
+
 1. Select **Connections**, then **Add Connection**.
+
 1. Fill out **Connection Details** with the SQL Server name and other information.
 
     > **Note**: Enter the name of the SQL Server created previously. It should follow **<server>.database.windows.net**
@@ -103,9 +105,13 @@ Before start using the Azure migration extension, let's connect to the target da
 Follow the steps to install the migration extension.
 
 1. Open the extensions manager in Azure Data Studio.
+
 1. Search for ***Azure SQL Migration*** and select the extension.
+
 1. Install the extension. Once you install it, the Azure SQL Migration extension is in the list of installed extensions.
+
 1. Connect to a SQL Server instance in Azure Data Studio.
+
 1. To launch the Azure migration extension, right-click on the source instance name and select **Manage** to access the dashboard and the landing page of the Azure SQL Migration extension.
  
 ## Generate the database schema with DMA
