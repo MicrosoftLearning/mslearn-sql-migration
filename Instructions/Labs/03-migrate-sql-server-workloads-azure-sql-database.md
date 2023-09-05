@@ -7,13 +7,13 @@ lab:
 
 In this exercise, you'll learn how to migrate a SQL Server database to Azure SQL Database using the Azure migration extension for Azure Data Studio. You'll start by installing and launching the Azure migration extension for Azure Data Studio. Then, you'll perform an offline migration of a SQL Server database to Azure SQL Database. You'll also learn how to monitor the migration process on the Azure portal.
 
-This exercise will take approximately **45** minutes.
+This exercise takes approximately **45** minutes.
 
 > **Note**: To complete this exercise, you need access to an Azure subscription to create Azure resources. If you don't have an Azure subscription, create a [free account](https://azure.microsoft.com/free/?azure-portal=true) before you begin.
 
 ## Before you start
 
-To run this exercise, you'll need:
+To run this exercise, you need:
 
 | Item | Description |
 | --- | --- |
@@ -26,16 +26,18 @@ To run this exercise, you'll need:
 
 ## Provision an Azure SQL Database
 
-Let's provision an Azure SQL Database that will server as our target environment.
+Let's set up an Azure SQL Database that will serve as our target environment.
 
-1. From the Azure portal, search for **SQL databases** in the search box at the top, then click **SQL databases** from the list of options.
+1. From the Azure portal, search for **SQL databases** in the search box at the top, then select **SQL databases**.
+
 1. On the **SQL databases** blade, select **+ Create**.
-1. On the **Create SQL Database** page, select the following options on the **Basics** tab and then click **Next: Networking**.
+
+1. On the **Create SQL Database** page, select the following options on the **Basics** tab, and then select **OK**.
 
     - **Subscription:** &lt;Your subscription&gt;
     - **Resource group:** &lt;Your resource group&gt;
     - **Database Name:** AdventureWorksLT
-    - **Server:** click on **Create new** link. The **Create SQL Database Server** page will open. Provide the server details as follow:
+    - **Server:** Select **Create new**. Provide the server details on the **Create SQL Database Server** page.
         - **Server name:** &lt;Choose a server name&gt;. Server name must be globally unique.
         - **Location:** &lt;Your region, same as your resource group&gt;
         - **Authentication method:** Use SQL authentication
@@ -43,15 +45,16 @@ Let's provision an Azure SQL Database that will server as our target environment
         - **Password:** &lt;Your password&gt;
         - **Confirm password:** &lt;Your password&gt;
 
-1. Select **OK**.
-1. Back to the **Create SQL Database** page, make sure **Want to use Elastic Pool?** is set to **No**.
-1. On the **Compute + Storage** option, click on **Configure database** link. On the **Configure** page, for **Service tier** dropdown, select **Basic**, and then **Apply**.
+1. Back to the **Create SQL Database** page, make sure **Want to use Elastic Pool?** is set to **No**. 
 
-    **Note:** Make note of this server name, and your login information. You will use it in subsequent tasks.
-1. For the **Backup storage redundancy** option, keep the default value: **Geo-redundant backup storage**.
-1. Then click **Next: Networking**.
-1. On the **Networking** tab, for **Network Connectivity** option, click the **Private endpoint** radio button.
-1. Then click the **+ Add private endpoint** link under the **Private endpoints** option.
+1. On the **Compute + Storage** option, Select **Configure database**. On the **Configure** page, for **Service tier** dropdown, select **Basic**, and then **Apply**.
+
+    **Note:** Make note of this server name, and your sign in information. You'll use it in subsequent tasks.
+
+1. For the **Backup storage redundancy** option, keep the default value: **Geo-redundant backup storage**. Select **Next: Networking**.
+
+1. On the **Networking** tab, for **Network Connectivity** option, select **Private endpoint**. Select the **+ Add private endpoint** link under the **Private endpoints** option.
+
 1. Complete the **Create private endpoint** right pane as follows:
 
     - **Subscription:** &lt;Your subscription&gt;
@@ -63,19 +66,17 @@ Let's provision an Azure SQL Database that will server as our target environment
     - **Subnet:** lab02-vnet/default (10.x.0.0/24)
     - **Integrate with private DNS zone:** Yes
     - **Private DNS zone:** keep the default value
-    - Review settings, and then click **OK**  
+    - Review the settings, and then select **OK**  
 
-1. The new endpoint will appear on the **Private endpoints** list.
+1. The new endpoint appears on the **Private endpoints** list.
 
-1. Click **Next: Security**, and then **Next: Additional settings**.  
+1. Select **Next: Security**, and then **Next: Additional settings**.  
 
-1. On the **Additional settings** page, select **Sample** on the **Use existing data** option. Select **OK** if a pop-up message is displayed for the sample database.
+1. On the **Additional settings** page, select **Review + Create**.
 
-1. Click **Review + Create**.
+1. Review the settings, then select **Create**.
 
-1. Review the settings before clicking **Create**.
-
-1. Once the deployment is complete, click **Go to resource**.
+1. Once the deployment is complete, select **Go to resource**.
 
 ## Enable access to an Azure SQL Database
 
@@ -85,7 +86,7 @@ Let's enable access to Azure SQL Database
 
 1. On the SQL servers navigation blade, select **Networking** under the **Security** section.
 
-1. On the **Public access** tab, select **Selected networks**, and then check the **Allow Azure services and resources to access this server** property. Click **Save**.
+1. On the **Public access** tab, select **Selected networks**, and then check the **Allow Azure services and resources to access this server** property. Select **Save**.
 
 ## Connect to Azure SQL Database in Azure Data Studio
 
@@ -99,7 +100,7 @@ Before start using the Azure migration extension, let's connect to the target da
 
 ## Install and launch the Azure migration extension for Azure Data Studio
 
-Follow the steps below to install the migration extension.
+Follow the steps to install the migration extension.
 
 1. Open the extensions manager in Azure Data Studio.
 1. Search for ***Azure SQL Migration*** and select the extension.
@@ -109,7 +110,7 @@ Follow the steps below to install the migration extension.
  
 ## Generate the database schema with DMA
 
-Before we begin the migration, we need to make sure the schema exists at the target database. We'll use DMA to create the schema from the source and apply it to the target.
+Before we begin the migration, we need to make sure the schema exists at the target database. We use DMA to create the schema from the source and apply it to the target.
 
 1. Launch Data Migration Assistant.
 
@@ -129,7 +130,7 @@ Before we begin the migration, we need to make sure the schema exists at the tar
 
     :::image type="content" source="../media/3-data-migration-generate.png" alt-text="Screenshot showing the select objects tab on Data Migration Assistant.":::
 
-1. Review and adjust the script for objects that cannot be created at the target in their current state.
+1. Review and adjust the script for objects that can't be created at the target in their current state.
  
 1. You can execute the script manually using Azure Data Studio, SQL Management Studio, or by selecting **Deploy schema**.
 
@@ -137,7 +138,7 @@ Before we begin the migration, we need to make sure the schema exists at the tar
 
 ## Perform an offline migration of a SQL Server database to Azure SQL Database
 
-Follow the steps below to perform an offline migration using Azure Data Studio.
+Follow the steps to perform an offline migration using Azure Data Studio.
 
 1. Launch the Migrate to Azure SQL wizard within the extension in Azure Data Studio, and then select **Migrate to Azure SQL**.
 
@@ -179,7 +180,7 @@ You've learned how to install the migration extension, and generate the schema o
 
 When you're working in your own subscription, it's a good idea at the end of a project to identify whether you still need the resources you created. 
 
-Leaving resources running unnecessarily can result in additional costs. You can delete resources individually or delete the entire set of resources in the [Azure portal](https://portal.azure.com?azure-portal=true).
+Leaving resources running unnecessarily can result in extra costs. You can delete resources individually or delete the entire set of resources in the [Azure portal](https://portal.azure.com?azure-portal=true).
 
 ## More information
 
