@@ -28,10 +28,15 @@ To complete this exercise, we’ll be using many resources and tools. Let’s ta
 Let's create the Azure SQL Database resources in two steps. First, we’ll establish the primary server and database. Then, we’ll repeat the process to set up the secondary server with a different name. This results in two Azure SQL servers, each with its own firewall rules. However, only the primary server has a database.
 
 1. Navigate to the [Azure portal](https://portal.azure.com), and sign in with your Azure account credentials.
+
 1. Select the **Cloud Shell** option on the top-right menu bar (it looks like a shell prompt **`>_`**).
+
 1. A pane slides up from the bottom asking you to choose your preferred shell type. Select **Bash**.
+
 1. If this is your first time opening **Cloud Shell**, you'll be prompted to create a storage account (used to persist your data across sessions). Follow the prompts to create one.
+
 1. After the shell initiates, you'll have a command-line interface right within the Azure portal where you can enter your script commands.
+
 1. Select **{}** to open the editor and copy and paste the script below. 
  
     > **Note**: Remember to replace the placeholder values in the script with your actual values before running it. If you need to edit the script, type `code` in the **Cloud Shell** to use the built-in text editor.
@@ -53,7 +58,9 @@ Let's create the Azure SQL Database resources in two steps. First, we’ll estab
     This Azure CLI script sets the active Azure subscription, creates a new Azure SQL server, and then creates a new Azure SQL Database populated with the AdventureWorksLT sample data.
 
 1. Right click on the editor page, and select **Save**.
+
 1. Provide a name for the file. The file extension should be **.ps1**.
+
 1. On the Cloud Shell terminal, type and execute the command.
 
     ```bash
@@ -62,20 +69,26 @@ Let's create the Azure SQL Database resources in two steps. First, we’ll estab
     ```
     
     Replace *<script_name>* to reflect the name you provided for script. This command  changes the permissions of the file you created to make it executable.
+
 1. Execute the script. 
     
     ```powershell
     ./<script_name>.ps1
 
     ```
+
 1. Once the process is complete, navigate to the newly created Azure SQL server by going to the Azure portal and navigating to the page for your SQL server. 
+
 1. In your Azure SQL server main page, select **Networking** on the left.
+
 1. In the **Public access** tab, select **Selected networks**.
+
 1. In the **Firewall rules** section, select **+ Add your client IPv4 address**. Type your IP address then select **Save**.
 
     ![Screenshot of the firewall rule page for Azure SQL Database.](../media/5-new-firewall-rule.png)
 
     At this point, you should be able to connect to the primary `AdventureWorksLT` database through a client tool like SQL Management Studio.
+
 1. Now, let's create a secondary Azure SQL server. Repeat the previous steps (6-14), but make sure to use a different `serverName` and `location`. Also, skip the code that creates the database by commenting out the `az sql db create` command. This results in a new server in a different region without the sample database.
 
 ## Enable geo-replication
@@ -83,12 +96,19 @@ Let's create the Azure SQL Database resources in two steps. First, we’ll estab
 Now, let's create the secondary replica for our Azure SQL resources.
 
 1. In the Azure portal, navigate to your database by searching for **SQL databases**.
+
 1. Select the SQL database **AdventureWorksLT**.
+
 1. In your Azure SQL database main page, select **Replicas** under **Data management** on the left.
+
 1. Select **+ Create replica**.
+
 1. On the **Create SQL Database - Geo Replica** page and under **Server**, select the new secondary SQL server created previously.
+
 1. Select **Review + Create**, then select **Create**. The secondary database will now be created, and seeded. To check the status, look under the notification icon at the top of the Azure portal. 
+
 1. If successful, it will progress from **Deployment in progress** to **Deployment succeeded**.
+
 1. Connect to your secondary Azure SQL server using SQL Management Studio.
 
 ## Fail over an SQL database to a secondary region
@@ -100,12 +120,17 @@ A forced failover switches the roles of your primary and secondary databases. Th
 Let's learn how to initiate a forced failover in response to a region outage.
 
 1. Navigate to the SQL servers page, and select the secondary server.
+
 1. In the **Settings** section on the left, select **SQL databases**.
+
 1. In your Azure SQL database main page, select **Replicas** under **Data management** on the left. The geo replication link is now established.
+
 1. Select the **...** menu for the secondary server, and select **Forced Failover**.
 
     > **Note**: Forced failover will switch the secondary database to the primary role. All sessions are disconnected during this operation.
+
 1. When prompted by the warning message, select **Yes**.
+
 1. The status of the primary replica switches to **Pending** and the secondary to **Failover**. 
 
     > **Note**:  This operation might take a few minutes. Once it's done, the roles will reverse: the secondary server will become the new primary server, and the original primary server will turn into the secondary one.
