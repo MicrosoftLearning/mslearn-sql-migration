@@ -190,4 +190,4 @@ Leaving resources running unnecessarily can result in extra costs. You can delet
 
 ## More information
 
-For more information about Azure SQL Database, see [What is Azure SQL Database.](https://learn.microsoft.com/en-us/azure/azure-sql/database/sql-database-paas-overview)
+For more information about Azure SQL Database, see [What is Azure SQL Database](https://learn.microsoft.com/en-us/azure/azure-sql/database/sql-database-paas-overview).
