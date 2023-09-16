@@ -5,11 +5,9 @@ lab:
 
 # Configure geo-replication for Azure SQL Database
 
-**Estimated Time: 30 minutes**
-
 In this exercise, you’ll learn how to enable geo-replication for an Azure SQL Database and perform a failover to a secondary region. This involves creating a replica of your database, setting up a new server for the secondary database, and initiating a forced failover. You’ll also learn how to check the status of your deployments and understand the role of geo-secondaries or geo-replicas in Azure SQL Database management. Finally, you’ll manually fail over the database to another region using the Azure portal. This exercise provides hands-on experience with key aspects of managing and ensuring the resilience of your Azure SQL Databases.
 
-This exercise takes approximately **45** minutes.
+This exercise takes approximately **30** minutes.
 
 > **Note**: To complete this exercise, you need access to an Azure subscription to create Azure resources. If you don't have an Azure subscription, create a [free account](https://azure.microsoft.com/free/?azure-portal=true) before you begin.
 
