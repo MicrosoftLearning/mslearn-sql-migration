@@ -122,7 +122,7 @@ Before we begin the migration, we need to make sure the schema exists at the tar
 
 1. Create a new migration project, set the source type to **SQL Server**,  the target server type to **Azure SQL Database**, and migration scope to **Schema only**. Select **Create**.
 
-    :::image type="content" source="../media/3-data-migration-schema.png" alt-text="Screenshot showing how to initiate a new migration project on Data Migration Assistant.":::
+    ![Screenshot showing how to initiate a new migration project on Data Migration Assistant.](../media/3-data-migration-schema.png) 
 
 1. On the **Select source** tab, enter the name of the source SQL Server instance, and select the **Authentication type** supported by the source SQL Server instance. Select **Connect**. 
 
@@ -134,13 +134,13 @@ Before we begin the migration, we need to make sure the schema exists at the tar
 
 1. On the **Select objects** tab, select the schema objects from the source database that you want to generate the script. Select **Generate SQL script**. 
 
-    :::image type="content" source="../media/3-data-migration-generate.png" alt-text="Screenshot showing the select objects tab on Data Migration Assistant.":::
+    ![Screenshot showing the select objects tab on Data Migration Assistant.](../media/3-data-migration-generate.png)
 
 1. Review and adjust the script for objects that can't be created at the target in their current state.
  
 1. You can execute the script manually using Azure Data Studio, SQL Management Studio, or by selecting **Deploy schema**.
 
-    :::image type="content" source="../media/3-data-migration-script.png" alt-text="Screenshot showing the generated script on Data Migration Assistant.":::
+    ![Screenshot showing the generated script on Data Migration Assistant.](../media/3-data-migration-script.png)
 
 ## Perform an offline migration of a SQL Server database to Azure SQL Database
 
