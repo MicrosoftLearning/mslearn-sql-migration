@@ -37,39 +37,24 @@ Let's set up an Azure SQL Database that will serve as our target environment.
 
     - **Subscription:** &lt;Your subscription&gt;
     - **Resource group:** &lt;Your resource group&gt;
-    - **Database Name:** AdventureWorksLT
-    - **Server:** Select **Create new**. Provide the server details on the **Create SQL Database Server** page.
+    - **Database name:** AdventureWorksLT
+    - **Server:** Select the **Create new** link. Provide the server details on the **Create SQL Database Server** page.
         - **Server name:** &lt;Choose a server name&gt;. Server name must be globally unique.
         - **Location:** &lt;Your region, same as your resource group&gt;
         - **Authentication method:** Use SQL authentication
         - **Server admin login:** sqladmin
         - **Password:** &lt;Your password&gt;
         - **Confirm password:** &lt;Your password&gt;
+    - **Want to use SQL elastic pool?** No
+    - **Workload environment:** Production
 
-1. Back to the **Create SQL Database** page, make sure **Want to use Elastic Pool?** is set to **No**. 
-
-1. On the **Compute + Storage** option, Select **Configure database**. On the **Configure** page, for **Service tier** dropdown, select **Basic**, and then **Apply**.
+1. On the **Compute + storage** option, select **Configure database**. On the **Configure** page, for **Service tier** dropdown, select **Basic**, and then **Apply**.
 
     **Note:** Make note of this server name, and your sign in information. You'll use it in subsequent tasks.
 
 1. For the **Backup storage redundancy** option, keep the default value: **Geo-redundant backup storage**. Select **Next: Networking**.
 
-1. On the **Networking** tab, for **Network Connectivity** option, select **Private endpoint**. Select the **+ Add private endpoint** link under the **Private endpoints** option.
-
-1. Complete the **Create private endpoint** right pane as follows:
-
-    - **Subscription:** &lt;Your subscription&gt;
-    - **Resource group:** &lt;Your resource group&gt;
-    - **Location:** &lt;Your region, same as your resource group&gt;
-    - **Name:** SQL-Endpoint
-    - **Target sub-resource:** SqlServer
-    - **Virtual network:** lab02-vnet
-    - **Subnet:** lab02-vnet/default (10.x.0.0/24)
-    - **Integrate with private DNS zone:** Yes
-    - **Private DNS zone:** keep the default value
-    - Review the settings, and then select **OK**  
-
-1. The new endpoint appears on the **Private endpoints** list.
+1. On the **Networking** tab, for **Add current client IP address**, select **Yes**. 
 
 1. Select **Next: Security**, and then **Next: Additional settings**.  
 
