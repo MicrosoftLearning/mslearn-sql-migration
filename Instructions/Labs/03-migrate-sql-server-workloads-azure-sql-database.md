@@ -22,7 +22,7 @@ To run this exercise, you need:
 | **Source Server** | The latest [SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) version installed on a server of your choice. |
 | **Source Database** | The lightweight [AdventureWorks](https://learn.microsoft.com/sql/samples/adventureworks-install-configure) database to be restored on the latest SQL Server instance. |
 | **Azure Data Studio** | For this exercise, install [Azure Data Studio](https://learn.microsoft.com/sql/azure-data-studio/download-azure-data-studio) in the same server where the source database is located. If it's already installed, make sure that you’re using the most recent version.|
-| **Data Migration Assistant** | For this exercise, install [Data Migration Assistant](https://learn.microsoft.com/sql/azure-data-studio/download-azure-data-studio) in the same server where the source database is located. |
+| **Data Migration Assistant** | For this exercise, install [Data Migration Assistant](https://www.microsoft.com/en-us/download/details.aspx?id=53595) in the same server where the source database is located. |
 | **Microsoft.DataMigration** resource provider | Make sure the subscription is registered to use the **Microsoft.DataMigration** namespace. To learn how to perform a resource provider registration, see [Register the resource provider](https://learn.microsoft.com/azure/dms/quickstart-create-data-migration-service-portal#register-the-resource-provider). |
 
 ## Provision an Azure SQL Database
@@ -72,7 +72,13 @@ Let's enable access to Azure SQL Database
 
 1. On the SQL servers navigation blade, select **Networking** under the **Security** section.
 
-1. On the **Public access** tab, select **Selected networks**, and then check the **Allow Azure services and resources to access this server** property. Select **Save**.
+1. On the **Public access** tab, select **Selected networks**. 
+
+1. In **Firewall rules**, select **+ Add your client IPv4 address**.
+
+1. On **Exceptions**, check the **Allow Azure services and resources to access this server** property. 
+
+1. Select **Save**.
 
 ## Connect to Azure SQL Database in Azure Data Studio
 
@@ -84,11 +90,11 @@ Before start using the Azure migration extension, let's connect to the target da
 
 1. Fill out **Connection Details** with the SQL Server name and other information.
 
-    > **Note**: Enter the name of the SQL Server created previously. It should follow **<server>.database.windows.net**
+    > **Note**: Enter the name of the SQL Server created previously. The format should be in the format of **<server>.database.windows.net**.
 
 ## Install and launch the Azure migration extension for Azure Data Studio
 
-Follow the steps to install the migration extension.
+Follow these steps to install the migration extension.
 
 1. Open the extensions manager in Azure Data Studio.
 
@@ -112,27 +118,27 @@ Before we begin the migration, we need to make sure the schema exists at the tar
 
     ![Screenshot showing how to initiate a new migration project on Data Migration Assistant.](../media/3-data-migration-schema.png) 
 
-1. On the **Select source** tab, enter the name of the source SQL Server instance, and select the **Authentication type** supported by the source SQL Server instance. Select **Connect**. 
+1. On the **Select source** tab, enter the name of the source SQL Server instance, and select the **Authentication type** supported by the source SQL Server instance. Select **Connect**. Make sure **Encrypt connection** is unchecked.
 
-1. Select a database to migrate to Azure SQL Database, and then select **Next**.
+1. Select **AdventureWorksLT** database, and then select **Next**.
 
-1. On the **Select target** tab, enter the name of the source SQL Server instance, and select the **Authentication type** supported by the source SQL Server instance. Select **Connect**. 
+1. On the **Select target** tab, enter the name of the source SQL Server instance, select **SQL Server Authentication** for **Authentication type**, and provide the SQL user credentials. 
 
-1. Select a target database, and then select **Next**.
+1. Select **AdventureWorksLT** database, and then select **Next**.
 
-1. On the **Select objects** tab, select the schema objects from the source database that you want to generate the script. Select **Generate SQL script**. 
+1. On the **Select objects** tab, select all schema objects from the source database. Select **Generate SQL script**. 
 
     ![Screenshot showing the select objects tab on Data Migration Assistant.](../media/3-data-migration-generate.png)
 
-1. Review and adjust the script for objects that can't be created at the target in their current state.
+1. Once the schema has been generated, take some time to review it. This step involves making any necessary adjustments to the script for objects that cannot be created in their current state at the target location, which is not the case in this scenario.
  
-1. You can execute the script manually using Azure Data Studio, SQL Management Studio, or by selecting **Deploy schema**.
+1. You can execute the script manually using Azure Data Studio, SQL Management Studio, or by selecting **Deploy schema**. Proceed with one of the methods.
 
     ![Screenshot showing the generated script on Data Migration Assistant.](../media/3-data-migration-script.png)
 
 ## Perform an offline migration of a SQL Server database to Azure SQL Database
 
-Follow the steps to perform an offline migration using Azure Data Studio.
+Follow these steps to perform an offline migration using Azure Data Studio.
 
 1. Launch the Migrate to Azure SQL wizard within the extension in Azure Data Studio, and then select **Migrate to Azure SQL**.
 
@@ -144,15 +150,17 @@ Follow the steps to perform an offline migration using Azure Data Studio.
 
     > **Note**: Take a moment to review the assessment results on the right side.
 
-1. On **Step 3: Azure SQL target**, select an Azure account, AD tenant, subscription, location, resource group, Azure SQL Database server, and credentials of the Azure SQL Database created in the previous task. 
+1. On **Step 3: Azure SQL target**, if the account is not linked yet, make sure you add an account selecting the **Link account** link. Then, select an Azure account, AD tenant, subscription, location, resource group, Azure SQL Database server, and credentials of the Azure SQL Database. 
 
-1. Select **Connect**, and then select the **Target database**. Select **Next**.
+1. Select **Connect**, and then select **AdventureWorksLT** as **Target database**. Select **Next**.
 
-1. On **Step 4: Azure Database Migration Service**, create a new Azure Database Migration Service using the Azure Data Studio wizard. If you have previously created one, you can reuse it. Make sure you follow the steps provided by the wizard to set up the self-hosted integration runtime.
+1. On **Step 4: Azure Database Migration Service**, select the **Create new** link to create a new Azure Database Migration Service using the wizard. If you have previously created one, you can reuse it. Follow the steps provided by the wizard to set up the self-hosted integration runtime.
 
 1. On **Step 5: Data source configuration**, enter the credentials to connect to the SQL Server instance from the self-hosted integration runtime. Select all the tables to migrate from source to target. Select **Run validation**.
 
     ![Screenshot of the run validation step on the Azure migration extension for Azure Data Studio.](../media/3-run-validation.png) 
+
+1. After the validation completes, select **Next**.
 
 1. On **Step 6: Summary**, select **Start migration**.
 
