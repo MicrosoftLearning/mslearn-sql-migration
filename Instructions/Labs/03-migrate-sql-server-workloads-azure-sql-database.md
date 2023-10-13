@@ -21,8 +21,9 @@ To run this exercise, you need:
 | **Target Database** | A database on Azure SQL Database server.|
 | **Source Server** | The latest [SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) version installed on a server of your choice. |
 | **Source Database** | The lightweight [AdventureWorks](https://learn.microsoft.com/sql/samples/adventureworks-install-configure) database to be restored on the latest SQL Server instance. |
-| **Azure Data Studio** | For this exercise, install [Azure Data Studio](https://learn.microsoft.com/sql/azure-data-studio/download-azure-data-studio) in the same server where the source database is located. |
+| **Azure Data Studio** | For this exercise, install [Azure Data Studio](https://learn.microsoft.com/sql/azure-data-studio/download-azure-data-studio) in the same server where the source database is located. If it's already installed, make sure that you’re using the most recent version.|
 | **Data Migration Assistant** | For this exercise, install [Data Migration Assistant](https://learn.microsoft.com/sql/azure-data-studio/download-azure-data-studio) in the same server where the source database is located. |
+| **Microsoft.DataMigration** resource provider | Make sure the subscription is registered to use the **Microsoft.DataMigration** namespace. To learn how to perform a resource provider registration, see [Register the resource provider](https://learn.microsoft.com/azure/dms/quickstart-create-data-migration-service-portal#register-the-resource-provider). |
 
 ## Provision an Azure SQL Database
 
@@ -110,9 +111,11 @@ Follow the steps to install the migration extension.
 
 1. Install the extension. Once you install it, the Azure SQL Migration extension is in the list of installed extensions.
 
-1. Connect to a SQL Server instance in Azure Data Studio.
+1. Connect to a SQL Server instance in Azure Data Studio. In the new connection tab, select **Optional (False)** for the **Encrypt** option.
 
 1. To launch the Azure migration extension, right-click on the source instance name and select **Manage** to access the dashboard and the landing page of the Azure SQL Migration extension.
+
+    > **Note**: If the **Azure SQL Migration** option isn't visible in the dashboard side bar, reopen Azure Data Studio.
  
 ## Generate the database schema with DMA
 
@@ -161,8 +164,6 @@ Follow the steps to perform an offline migration using Azure Data Studio.
 1. Select **Connect**, and then select the **Target database**. Select **Next**.
 
 1. On **Step 4: Azure Database Migration Service**, create a new Azure Database Migration Service using the Azure Data Studio wizard. If you have previously created one, you can reuse it. Make sure you follow the steps provided by the wizard to set up the self-hosted integration runtime.
-
-    > **Note**: Make sure the subscription is registered to use the **Microsoft.DataMigration** namespace. To learn how to perform a resource provider registration, see [Register the resource provider](https://learn.microsoft.com/azure/dms/quickstart-create-data-migration-service-portal#register-the-resource-provider).
 
 1. On **Step 5: Data source configuration**, enter the credentials to connect to the SQL Server instance from the self-hosted integration runtime. Select all the tables to migrate from source to target. Select **Run validation**.
 
