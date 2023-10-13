@@ -94,7 +94,7 @@ Before start using the Azure migration extension, let's connect to the target da
 
 ## Install and launch the Azure migration extension for Azure Data Studio
 
-Follow these steps to install the migration extension.
+Follow these steps to install the migration extension. If Azure migration extension is already installed, you can skip these steps.
 
 1. Open the extensions manager in Azure Data Studio.
 
