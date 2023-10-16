@@ -81,19 +81,15 @@ To perform a minimal downtime migration using Azure Data Studio, follow these st
 
     > **Note**: Make sure the subscription is registered to use the **Microsoft.DataMigration** namespace. To learn how to perform a resource provider registration, see [Register the resource provider](https://learn.microsoft.com/azure/dms/quickstart-create-data-migration-service-portal#register-the-resource-provider).
 
-1. Back up the source database, and copy it over to a folder of your preference on the source server.
+1. Back up the source database. You can [back up to Microsoft Azure Blob Storage using SSMS or T-SQL](https://learn.microsoft.com/en-us/sql/relational-databases/backup-restore/sql-server-backup-to-url). Alternatively, you also have the option to manually copy the database backup to a container folder using the Azure portal.
 
-    > **Note:** The Azure Data Migration Services will orchestrate and restore the backup files automatically at the target server.
-
-1. On Azure portal, navigate to the storage account, then the container.
-
-1. Select **Upload**, and then select **Folder** from the drop-down menu.
-
-1. Choose a folder you placed the full backup file, and select **Upload**.
+    > **Note**: Ensure that a folder is created in the container before proceeding with the backup file copy.
 
 1. On **Step 5: Data source configuration**, select the location of your database backups, either on an on-premises network share or in an Azure Blob Storage container.
 
 1. Start the database migration and monitor the progress in Azure Data Studio. You can also track the progress in the Azure portal under the Azure Database Migration Service resource.
+
+    > **Note**: The Azure Data Migration Services will orchestrate and restore the backup files automatically at the target server.
 
 1. Select **Database migrations in progress** in the migration dashboard to view ongoing migrations. 
 
