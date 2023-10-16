@@ -56,9 +56,7 @@ Let's set up an Azure SQL Database that will serve as our target environment.
 
 1. For the **Backup storage redundancy** option, keep the default value: **Geo-redundant backup storage**. Select **Next: Networking**.
 
-1. On the **Networking** tab, for **Add current client IP address**, select **Yes**. 
-
-1. Select **Next: Security**, and then **Next: Additional settings**.  
+1. On the **Networking** tab, select **Next: Security**, and then **Next: Additional settings**.
 
 1. On the **Additional settings** page, select **Review + Create**.
 
@@ -90,7 +88,7 @@ Before start using the Azure migration extension, let's connect to the target da
 
 1. Select **Connections**, then **Add Connection**.
 
-1. Fill out **Connection Details** with the SQL Server name and other information.
+1. Fill out the **Connection Details** fields with the SQL Server name and other information.
 
     > **Note**: Enter the name of the SQL Server created previously. The format should be in the format of **<server>.database.windows.net**.
 
@@ -110,9 +108,9 @@ Follow these steps to install the migration extension. If the extension is alrea
 
 1. Connect to a SQL Server instance in Azure Data Studio. In the new connection tab, select **Optional (False)** for the **Encrypt** option.
 
-1. To launch the Azure migration extension, right-click on the source instance name and select **Manage** to access the dashboard and the landing page of the Azure SQL Migration extension.
+1. To launch the Azure migration extension, right-click on the SQL Server instance name and select **Manage** to access the dashboard and the landing page of the Azure SQL Migration extension.
 
-    > **Note**: If the **Azure SQL Migration** option isn't visible in the dashboard side bar, reopen Azure Data Studio.
+    > **Note**: If **Azure SQL Migration** isn't visible in the server dashboard side bar, reopen Azure Data Studio.
  
 ## Generate the database schema with DMA
 
@@ -148,7 +146,7 @@ Before we begin the migration, we need to make sure the schema exists at the tar
 
 We’re now ready to migrate the data. Follow these steps to perform an offline migration using Azure Data Studio.
 
-1. Launch the Migrate to Azure SQL wizard within the extension in Azure Data Studio, and then select **Migrate to Azure SQL**.
+1. Launch the **Migrate to Azure SQL** wizard within the extension in Azure Data Studio, and then select **Migrate to Azure SQL**.
 
 1. On **Step 1: Databases for assessment**, select the *AdventureWorks* database, then select **Next**.
 
@@ -164,7 +162,11 @@ We’re now ready to migrate the data. Follow these steps to perform an offline 
 
 1. On **Step 4: Azure Database Migration Service**, select the **Create new** link to create a new Azure Database Migration Service using the wizard. Follow the steps provided by the wizard to set up a new self-hosted integration runtime. If you have previously created one, you can reuse it.
 
-1. On **Step 5: Data source configuration**, enter the credentials to connect to the SQL Server instance from the self-hosted integration runtime. Select all the tables to migrate from source to target. Select **Run validation**.
+1. On **Step 5: Data source configuration**, enter the credentials to connect to the SQL Server instance from the self-hosted integration runtime. 
+
+1. Select all the tables to migrate from source to target. 
+
+1. Select **Run validation**.
 
     ![Screenshot of the run validation step on the Azure migration extension for Azure Data Studio.](../media/3-run-validation.png) 
 
