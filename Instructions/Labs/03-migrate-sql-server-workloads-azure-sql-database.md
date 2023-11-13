@@ -166,7 +166,7 @@ Before we begin the migration, we need to make sure the schema exists at the tar
 
 1. Select **AdventureWorksLT** database, and then select **Next**.
 
-1. On the **Select target** tab, enter the name of the source SQL Server instance, select **SQL Server Authentication** for **Authentication type**, and provide the SQL user credentials. 
+1. On the **Select target** tab, enter the name of the target Azure SQL server, select **SQL Server Authentication** for **Authentication type**, and provide the SQL user credentials. 
 
 1. Select **AdventureWorksLT** database, and then select **Next**.
 
