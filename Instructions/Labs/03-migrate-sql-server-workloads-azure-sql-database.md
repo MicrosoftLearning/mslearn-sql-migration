@@ -21,10 +21,48 @@ To run this exercise, you need:
 | **Target database** | A database on Azure SQL Database server. We'll create it during this exercise.|
 | **Source server** | An instance of SQL Server 2019 or a [newer version](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) installed on a server of your preference. |
 | **Source database** | The lightweight [AdventureWorks](https://learn.microsoft.com/sql/samples/adventureworks-install-configure) database to be restored on the SQL Server instance. |
-| **Azure Data Studio** | Install [Azure Data Studio](https://learn.microsoft.com/sql/azure-data-studio/download-azure-data-studio) in the same server where the source database is located. If it's already installed, make sure that you’re using the most recent version. |
+| **Azure Data Studio** | Install [Azure Data Studio](https://learn.microsoft.com/sql/azure-data-studio/download-azure-data-studio) in the same server where the source database is located. If it's already installed, update it to make sure that you’re using the most recent version. |
 | **Microsoft Data Migration Assistant** | Install [Data Migration Assistant](https://www.microsoft.com/en-us/download/details.aspx?id=53595) in the same server where the source database is located. |
 | **Microsoft.DataMigration** resource provider | Make sure the subscription is registered to use the **Microsoft.DataMigration** namespace. To learn how to perform a resource provider registration, see [Register the resource provider](https://learn.microsoft.com/azure/dms/quickstart-create-data-migration-service-portal#register-the-resource-provider). |
 | **Microsoft Integration runtime** | Install [Microsoft Integration Runtime](https://aka.ms/sql-migration-shir-download). |
+
+## Restore a SQL Server database
+
+Let's restore the *AdventureWorksLT* database on the SQL Server instance. This database will serve as the source database for this lab exercise. You can skip these steps if the database is already restored.
+
+1. Select the Windows Start button and type SSMS. Select **Microsoft SQL Server Management Studio 18** from the list.  
+
+1. When SSMS opens, notice that the **Connect to Server** dialog will be pre-populated with the default instance name. Select **Connect**.
+
+1. Select the **Databases** folder, and then **New Query**.
+
+1. In the new query window, copy and paste the below T-SQL into it. Execute the query to restore the database.
+
+    ```sql
+    RESTORE DATABASE AdventureWorksLT
+    FROM DISK = 'C:\LabFiles\AdventureWorksLT2019.bak'
+    WITH RECOVERY,
+          MOVE 'AdventureWorksLT2019_Data' 
+            TO 'C:\LabFiles\AdventureWorksLT2019.mdf',
+          MOVE 'AdventureWorksLT2019_Log'
+            TO 'C:\LabFiles\AdventureWorksLT2019.ldf';
+    ```
+
+    > **Note**: Ensure that the database backup file name and path in the above example match your actual backup file. If they don’t, the command may fail.
+
+1. You should see a successful message after the restore is complete.
+
+## Register Microsoft.DataMigration namespace
+
+Skip these steps if the **Microsoft.DataMigration** namespace is already registered on your subscription.
+
+1. From the Azure portal, search for **Subscription** in the search box at the top, then select **Subscriptions**. Select your subscription on the **Subscriptions** blade.
+
+1. On your subscription page, select **Resource providers** under **Settings**. Search for **Microsoft.DataMigration** in the search box at the top, then select **Microsoft.DataMigration**. 
+
+    > **Note**: If the **Resource Provider Details** side bar opens, you can close it.
+
+1. Select **Register**.
 
 ## Provision an Azure SQL Database
 

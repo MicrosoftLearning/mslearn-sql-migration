@@ -7,7 +7,7 @@ lab:
 
 In our scenario, you've been asked to assess the readiness of a legacy SQL Server database for migration to Azure SQL Database. Your task is to perform an assessment of their legacy database and identify any potential compatibility issues or changes that need to be made before migration. You should also review the schema of the database and identify any features or configurations that aren't supported in Azure SQL Database.
 
-This exercise will take approximately **30** minutes.
+This exercise will take approximately **15** minutes.
 
 > **Note**: To complete this exercise, you need access to an Azure subscription to create Azure resources. If you don't have an Azure subscription, create a [free account](https://azure.microsoft.com/free/?azure-portal=true) before you begin.
 
@@ -16,9 +16,34 @@ This exercise will take approximately **30** minutes.
 To run this exercise, ensure you have the following in place before proceeding:
 
 - You’ll need SQL Server 2019 or a later version, along with the [**AdventureWorksLT**](https://learn.microsoft.com/en-us/sql/samples/adventureworks-install-configure?view=sql-server-ver16&tabs=ssms) lightweight database that is compatible with your specific SQL Server instance.
-- Download and install [Azure Data Studio](https://learn.microsoft.com/sql/azure-data-studio/download-azure-data-studio). If it's already installed, make sure that you’re using the most recent version.
+- Download and install [Azure Data Studio](https://learn.microsoft.com/sql/azure-data-studio/download-azure-data-studio). If it's already installed, update it to make sure that you’re using the most recent version.
 - A SQL user with read access to the source database.
-- Run the following command on the **AdventureWorksLT** database in the SQL Server instance:
+
+## Restore a SQL Server database and run a command
+
+1. Select the Windows Start button and type SSMS. Select **Microsoft SQL Server Management Studio 18** from the list.  
+
+1. When SSMS opens, notice that the **Connect to Server** dialog will be pre-populated with the default instance name. Select **Connect**.
+
+1. Select the **Databases** folder, and then **New Query**.
+
+1. In the new query window, copy and paste the below T-SQL into it. Execute the query to restore the database.
+
+    ```sql
+    RESTORE DATABASE AdventureWorksLT
+    FROM DISK = 'C:\LabFiles\AdventureWorksLT2019.bak'
+    WITH RECOVERY,
+          MOVE 'AdventureWorksLT2019_Data' 
+            TO 'C:\LabFiles\AdventureWorksLT2019.mdf',
+          MOVE 'AdventureWorksLT2019_Log'
+            TO 'C:\LabFiles\AdventureWorksLT2019.ldf';
+    ```
+
+    > **Note**: Ensure that the database backup file name and path in the above example match your actual backup file. If they don’t, the command may fail.
+
+1. You should see a successful message after the restore is complete.
+
+1. Run the following command on the **AdventureWorksLT** database in the SQL Server instance.
 
 ```sql
 ALTER TABLE [SalesLT].[Customer] ADD [Next] VARCHAR(5);
