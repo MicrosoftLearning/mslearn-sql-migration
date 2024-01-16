@@ -111,21 +111,48 @@ Let's create a full backup of the *AdventureWorksLT* database on the SQL Server 
 
     ```sql
     BACKUP DATABASE AdventureWorksLT
-    TO DISK = 'C:\LabFiles\FULL-backup.bak'
+    TO DISK = 'C:\LabFiles\AdventureWorksLT_full.bak'
     WITH CHECKSUM;
 
     BACKUP DATABASE AdventureWorksLT
-    TO DISK = 'C:\LabFiles\DIFF-backup.dif'
+    TO DISK = 'C:\LabFiles\AdventureWorksLT_diff.dif'
     WITH DIFFERENTIAL, CHECKSUM;
 
     BACKUP LOG AdventureWorksLT
-    TO DISK = 'C:\LabFiles\TLOG-backup.trn'
+    TO DISK = 'C:\LabFiles\AdventureWorksLT_log.trn'
     WITH CHECKSUM;
     ```
 
     > **Note**: Ensure that the file path in the above example match your actual file path. If they don’t, the command may fail.
 
 1. You should see a successful message after the restore is complete.
+1. If you're running a version of SQL Server (starting with SQL Server 2012 SP1 CU2 and SQL Server 2014), you can take backups from SQL Server directly to your Blob Storage account by using the native SQL Server `BACKUP TO URL` option. 
+
+    ```sql
+    CREATE CREDENTIAL [https://<mystorageaccountname>.blob.core.windows.net/<containername>] 
+    WITH IDENTITY = 'SHARED ACCESS SIGNATURE',  
+    SECRET = '<SAS_TOKEN>';  
+    GO
+    
+    -- Take a full database backup to a URL
+    BACKUP DATABASE [AdventureWorksLT]
+    TO URL = 'https://<mystorageaccountname>.blob.core.windows.net/<containername>/<databasefolder>/AdventureWorksLT_full.bak'
+    WITH INIT, COMPRESSION, CHECKSUM
+    GO
+    
+    -- Take a differential database backup to a URL
+    BACKUP DATABASE [AdventureWorksLT]
+    TO URL = 'https://<mystorageaccountname>.blob.core.windows.net/<containername>/<databasefolder>/AdventureWorksLT_diff.bak'  
+    WITH DIFFERENTIAL, COMPRESSION, CHECKSUM
+    GO
+    
+    -- Take a transactional log backup to a URL
+    BACKUP LOG [AdventureWorksLT]
+    TO URL = 'https://<mystorageaccountname>.blob.core.windows.net/<containername>/<databasefolder>/AdventureWorksLT_log.trn'  
+    WITH COMPRESSION, CHECKSUM
+    ```
+
+    > **Note:** If you decide to use this option, you can skip the next **Copy backup files to Azure Storage account** section.
 
 ## Copy backup files to Azure Storage account
 
@@ -136,6 +163,23 @@ Now let's copy the backup files to the Azure Blob Storage account that you creat
 1. In the storage account overview page, scroll down to the **Blob service** section and select **Containers**. Select the container you created earlier.
 1. Select **Upload** at the top of the container page. In the **Upload blob** page, select **Folder** to select the folder containing the backup files, or select **Files** to choose individual backup files. Once you have selected the files, select **Upload** to start the upload process.
 
+## Validate access
+
+It's important to validate if your SQL Server and your SQL Managed Instance can access your Blob Storage account successfully. For this run a sample test query to determine if your managed instance is able to access the backup in the container.
+
+1. Connect on your SQL Managed Instance via SSMS.
+1. Open a new Query editor, and run the command.
+
+```sql
+CREATE CREDENTIAL [https://<mystorageaccountname>.blob.core.windows.net/databases] 
+WITH IDENTITY = 'SHARED ACCESS SIGNATURE' 
+, SECRET = '<sastoken>' 
+
+RESTORE HEADERONLY 
+FROM URL = 'https://<mystorageaccountname>.blob.core.windows.net/<containername>/<backup_file_name>.bak'
+```
+1. Repeat this process connected on your SQL Server instance.
+
 ## Use Log Replay Service to restore backup files
 
 You'll use the Log Replay Service (LRS) to restore the backup files from Azure Blob Storage to your Azure SQL Managed Instance. LRS is a free service that is based on SQL Server log-shipping technology.
@@ -143,6 +187,12 @@ You'll use the Log Replay Service (LRS) to restore the backup files from Azure B
 1. In the storage account overview page, scroll down to the **Blob service** section and select **Containers**. Select the container where the backup files are stored.
 1. Select **Generate SAS** at the top of the container page. In the **Generate shared access signature** page, select the permissions that you want to grant, set the start and expiry time for the SAS token, and then select **Generate SAS and connection string**. The SAS token will be displayed in the **SAS token** field, then copy it.
 1. Use PowerShell to connect to your Azure account by running the `Connect-AzAccount` cmdlet.
+
+    ```powershell
+    Login-AzAccount
+    Select-AzSubscription -SubscriptionId <subscription ID>
+    ```
+
 1. Use the `Start-AzSqlInstanceDatabaseLogReplay` cmdlet to start the Log Replay Service for the database that you want to restore. You'll need to provide the resource group name, instance name, database name, storage container URI, and the SAS token that you copied earlier.
 
 ```PowerShell
@@ -172,3 +222,17 @@ $logReplayStatus = Get-AzSqlInstanceDatabaseLogReplay -ResourceGroupName $resour
 # Display the log replay status
 $logReplayStatus | Format-List
 ```
+
+## Performing migration cutover
+
+After the full database backup is restored on the target instance of Azure SQL Database managed instance, the database is available for a migration cutover.
+
+1. When you're ready to complete the online database migration, select **Start Cutover**.
+1. Stop all the incoming traffic to source databases.
+1. Take the tail-log backup, make the backup file available in the SMB network share, and then wait until this final transaction log backup is restored.
+1. At that point, you'll see **Pending changes** set to 0.
+1. Select **Confirm**, and then select **Apply**.
+
+    ![Migration cutover screen](../media/3-migration-cutover-screen.png)
+
+1. When the database migration status shows **Completed**, connect your applications to the new target instance of Azure SQL Database managed instance.
