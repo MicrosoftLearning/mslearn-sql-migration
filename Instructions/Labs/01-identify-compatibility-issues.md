@@ -15,7 +15,7 @@ This exercise will take approximately **15** minutes.
 
 To run this exercise, ensure you have the following in place before proceeding:
 
-- You’ll need SQL Server 2019 or a later version, along with the [**AdventureWorksLT**](https://learn.microsoft.com/en-us/sql/samples/adventureworks-install-configure?view=sql-server-ver16&tabs=ssms) lightweight database that is compatible with your specific SQL Server instance.
+- You’ll need SQL Server 2019 or a later version, along with the [**AdventureWorksLT**](https://learn.microsoft.com/sql/samples/adventureworks-install-configure#download-backup-files) lightweight database that is compatible with your specific SQL Server instance.
 - Download and install [Azure Data Studio](https://learn.microsoft.com/sql/azure-data-studio/download-azure-data-studio). If it's already installed, update it to make sure that you’re using the most recent version.
 - A SQL user with read access to the source database.
 
@@ -27,19 +27,19 @@ To run this exercise, ensure you have the following in place before proceeding:
 
 1. Select the **Databases** folder, and then **New Query**.
 
-1. In the new query window, copy and paste the below T-SQL into it. Execute the query to restore the database.
+1. In the new query window, copy and paste the below T-SQL into it. Ensure that the database backup file name and path match your actual backup file. If they don’t, the command will fail. Execute the query to restore the database.
 
     ```sql
     RESTORE DATABASE AdventureWorksLT
-    FROM DISK = 'C:\LabFiles\AdventureWorksLT2019.bak'
+    FROM DISK = 'C:\<FolderName>\AdventureWorksLT2019.bak'
     WITH RECOVERY,
           MOVE 'AdventureWorksLT2019_Data' 
-            TO 'C:\LabFiles\AdventureWorksLT2019.mdf',
+            TO 'C:\<FolderName>\AdventureWorksLT2019.mdf',
           MOVE 'AdventureWorksLT2019_Log'
-            TO 'C:\LabFiles\AdventureWorksLT2019.ldf';
+            TO 'C:\<FolderName>\AdventureWorksLT2019.ldf';
     ```
 
-    > **Note**: Ensure that the database backup file name and path in the above example match your actual backup file. If they don’t, the command may fail.
+    > **Note**: Make sure you have the lightweight [AdventureWorks](https://learn.microsoft.com/sql/samples/adventureworks-install-configure#download-backup-files) backup file on the SQL Server machine before running the T-SQL command.
 
 1. You should see a successful message after the restore is complete.
 
