@@ -150,36 +150,6 @@ Follow these steps to install the migration extension. If the extension is alrea
 
     > **Note**: If **Azure SQL Migration** isn't visible in the server dashboard side bar, reopen Azure Data Studio.
  
-## Generate the database schema with DMA
-
-Before we begin the migration, we need to make sure the schema exists at the target database. We use DMA to create the schema from the source and apply it to the target.
-
-1. Launch Data Migration Assistant.
-
-1. Create a new migration project, set the source type to **SQL Server**,  the target server type to **Azure SQL Database**, and migration scope to **Schema only**. Select **Create**.
-
-    ![Screenshot showing how to initiate a new migration project on Data Migration Assistant.](../media/3-data-migration-schema.png) 
-
-1. On the **Select source** tab, enter the name of the source SQL Server instance, and select **Windows Authentication** for **Authentication type**. Uncheck **Encrypt connection**. 
-
-1. Select **Connect**.
-
-1. Select **AdventureWorksLT** database, and then select **Next**.
-
-1. On the **Select target** tab, enter the name of the target Azure SQL server, select **SQL Server Authentication** for **Authentication type**, and provide the SQL user credentials. 
-
-1. Select **AdventureWorksLT** database, and then select **Next**.
-
-1. On the **Select objects** tab, select all schema objects from the source database. Select **Generate SQL script**. 
-
-    ![Screenshot showing the select objects tab on Data Migration Assistant.](../media/3-data-migration-generate.png)
-
-1. Once the schema has been generated, take some time to review it. Generally, this step  involves making any necessary adjustments to the script for objects that can't be created in their current state at the target location, which isn't the case in this scenario.
- 
-1. You can execute the script manually using Azure Data Studio, SQL Management Studio, or by selecting **Deploy schema**. Proceed with one of the methods.
-
-    ![Screenshot showing the generated script on Data Migration Assistant.](../media/3-data-migration-script.png)
-
 ## Perform an offline migration of a SQL Server database to Azure SQL Database
 
 We’re now ready to migrate the data. Follow these steps to perform an offline migration using Azure Data Studio.
@@ -188,21 +158,23 @@ We’re now ready to migrate the data. Follow these steps to perform an offline 
 
 1. On **Step 1: Databases for assessment**, select the *AdventureWorks* database, then select **Next**.
 
-1. On **Step 2: Assessment results and recommendations**, wait for the assessment to complete, then select **Azure SQL Database** as the **Azure SQL** target.
+1. On **Step 2: Assessment summary and SKU recommendations**, wait for the assessment to complete, and review the results. Select **Next**.
 
-1. At the bottom of the **Step 2: Assessment results and recommendations** page, select **View/Select** to view the assessment results. Select the database to migrate.
+1. On **Step 3: Target platform and & assessment results**, select the database to see the assessment findings.
 
     > **Note**: Take a moment to review the assessment results on the right side.
 
-1. On **Step 3: Azure SQL target**, if the account isn't linked yet, make sure you add an account selecting the **Link account** link. Then, select an Azure account, AD tenant, subscription, location, resource group, Azure SQL Database server, and credentials of the Azure SQL Database.
+1. At the top of the **Step 3: Target platform and & assessment results** page, select **Azure SQL Database** as the **Azure SQL** target.
+
+1. On **Step 4: Azure SQL target**, if the account isn't linked yet, make sure you add an account selecting the **Link account** link. Then, select an Azure account, AD tenant, subscription, location, resource group, Azure SQL Database server, and credentials of the Azure SQL Database.
 
 1. Select **Connect**, and then select the *AdventureWorks* database as **Target database**. Select **Next**.
 
-1. On **Step 4: Azure Database Migration Service**, select the **Create new** link to create a new Azure Database Migration Service using the wizard. Follow the steps provided by the wizard to set up a new self-hosted integration runtime. If you have previously created one, you can reuse it.
+1. On **Step 5: Azure Database Migration Service**, select the **Create new** link to create a new Azure Database Migration Service using the wizard. Follow the steps provided by the wizard to set up a new self-hosted integration runtime. If you have previously created one, you can reuse it.
 
-1. On **Step 5: Data source configuration**, enter the credentials to connect to the SQL Server instance from the self-hosted integration runtime. 
+1. On **Step 6: Data source configuration**, enter the credentials to connect to the SQL Server instance from the self-hosted integration runtime. 
 
-1. Select all the tables to migrate from source to target. 
+1. Select all the tables to migrate from source to target, then check the **Migrate missing schema** option.
 
 1. Select **Run validation**.
 
@@ -210,7 +182,7 @@ We’re now ready to migrate the data. Follow these steps to perform an offline 
 
 1. After the validation completes, select **Next**.
 
-1. On **Step 6: Summary**, select **Start migration**.
+1. On **Step 7: Summary**, select **Start migration**.
 
 1. Select **Database migrations in progress** in the migration dashboard to view the migration status. 
 
