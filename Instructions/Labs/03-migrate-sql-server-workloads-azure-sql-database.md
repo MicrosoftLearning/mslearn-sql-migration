@@ -163,15 +163,19 @@ We’re now ready to migrate the data. Follow these steps to perform an offline 
 
 1. On **Step 5: Azure Database Migration Service**, select the **Create new** link to create a new Azure Database Migration Service using the wizard. Follow the steps provided by the wizard to set up a new self-hosted integration runtime. If you have previously created one, you can reuse it.
 
-1. On **Step 6: Data source configuration**, enter the credentials to connect to the SQL Server instance from the self-hosted integration runtime. 
+1. On **Step 6: Data source configuration**, enter the credentials to connect to the SQL Server instance from the self-hosted integration runtime.
 
-1. Select all the tables to migrate from source to target, then check the **Migrate missing schema** option.
+1. Select **Edit** for the *AdventureWorksLT* database. 
+
+1. Check the **Migrate schema to target** option, and verify that all the tables in the **Missing on target** tab are selected. Select **Update**.
 
 1. Select **Run validation**.
 
     ![Screenshot of the run validation step on the Azure migration extension for Azure Data Studio.](../media/3-run-validation.png) 
 
-1. After the validation completes, select **Next**.
+1. After the validation completes, select **Done**.
+
+1. Select **Next**.
 
 1. On **Step 7: Summary**, select **Start migration**.
 
