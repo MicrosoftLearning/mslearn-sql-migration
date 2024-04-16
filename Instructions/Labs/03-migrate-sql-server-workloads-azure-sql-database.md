@@ -155,11 +155,9 @@ We’re now ready to migrate the data. Follow these steps to perform an offline 
 
 1. On **Step 2: Assessment summary and SKU recommendations**, wait for the assessment to complete, and review the results. Select **Next**.
 
-1. On **Step 3: Target platform and & assessment results**, select the database to see the assessment findings.
+1. On **Step 3: Target platform and & assessment results**, select **Azure SQL Database** as the target type.
 
-    > **Note**: Take a moment to review the assessment results on the right side.
-
-1. At the top of the **Step 3: Target platform and & assessment results** page, select **Azure SQL Database** as the **Azure SQL** target.
+    > **Note**: Take a moment to review the assessment results that appear once you select the target type.
 
 1. On **Step 4: Azure SQL target**, if the account isn't linked yet, make sure you add an account selecting the **Link account** link. Then, select an Azure account, AD tenant, subscription, location, resource group, Azure SQL Database server, and credentials of the Azure SQL Database.
 
