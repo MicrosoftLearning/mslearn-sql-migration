@@ -157,9 +157,9 @@ We’re now ready to migrate the data. Follow these steps to perform an offline 
 
 1. On **Step 3: Target platform and & assessment results**, select **Azure SQL Database** as the target type. After reviewing the assessment results, select **Next**.
 
-1. On **Step 4: Azure SQL target**, if the account isn't linked yet, make sure you add an account selecting the **Link account** link. Then, select an Azure account, AD tenant, subscription, location, resource group, Azure SQL Database server, and credentials of the Azure SQL Database.
+1. On **Step 4: Azure SQL target**, if the account isn't linked yet, make sure you add an account selecting the **Link account** link. Then, select an Azure account, Microsoft Entra tenant, subscription, location, resource group, Azure SQL Database server, and credentials of the Azure SQL Database.
 
-1. Select **Connect**, and then select the *AdventureWorks* database as **Target database**. Select **Next**.
+1. Select **Connect**, and then select the *AdventureWorksLT* database as **Target database**. Select **Next**.
 
 1. On **Step 5: Azure Database Migration Service**, select the **Create new** link to create a new Azure Database Migration Service using the wizard. Follow the steps provided by the wizard to set up a new self-hosted integration runtime. If you have previously created one, you can reuse it.
 
