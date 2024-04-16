@@ -92,11 +92,7 @@ Let's set up an Azure SQL Database that will serve as our target environment.
 
 1. On **Compute + storage**, select **Configure database**. On the **Configure** page, for **Service tier** dropdown, select **Basic**, and then **Apply**.
 
-1. For the **Backup storage redundancy** option, keep the default value: **Geo-redundant backup storage**. Select **Next: Networking**.
-
-1. On the **Networking** tab, select **Next: Security**, and then **Next: Additional settings**.
-
-1. On the **Additional settings** page, select **Review + Create**.
+1. For the **Backup storage redundancy** option, keep the default value: **Geo-redundant backup storage**. Select **Review + Create**.
 
 1. Review the settings, then select **Create**.
 
