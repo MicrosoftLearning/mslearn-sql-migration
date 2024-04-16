@@ -151,7 +151,7 @@ We’re now ready to migrate the data. Follow these steps to perform an offline 
 
 1. Launch the **Migrate to Azure SQL** wizard within the extension in Azure Data Studio, and then select **Migrate to Azure SQL**.
 
-1. On **Step 1: Databases for assessment**, select the *AdventureWorks* database, then select **Next**.
+1. On **Step 1: Databases for assessment**, select the *AdventureWorksLT* database, then select **Next**.
 
 1. On **Step 2: Assessment summary and SKU recommendations**, wait for the assessment to complete, and review the results. Select **Next**.
 
