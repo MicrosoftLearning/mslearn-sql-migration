@@ -53,7 +53,7 @@ ALTER TABLE [SalesLT].[Customer] ADD [Next] VARCHAR(5);
 
 Follow these steps to install the migration extension. If Azure migration extension is already installed, you can skip these steps.
 
-1. Open the extensions manager in Azure Data Studio. s
+1. Open the extensions manager in Azure Data Studio.
 
 1. Search for ***Azure SQL Migration***, and install the extension. Once you install it, the Azure SQL Migration extension is in the list of installed extensions.
 
