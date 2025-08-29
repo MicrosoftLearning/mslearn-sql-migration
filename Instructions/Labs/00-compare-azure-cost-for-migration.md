@@ -20,20 +20,22 @@ This exercise will take approximately **30** minutes.
 
 ## Add the database workload
 
-1. In the **Products** section, locate and select **SQL Database** (you can use the search or browse the **Databases** category).
-1. In the **SQL Database** configuration panel that appears, enter these values:
+1. In the **Products** section, locate and select **Azure SQL Database** (you can use the search or browse the **Databases** category).
+1. In the **Azure SQL Database** configuration panel that appears further down the page, enter these values:
 
     | Property | Value |
     | --- | --- |
     | Region | **East US** (or your preferred region) |
     | Type | **Single Database** |
-    | Backup storage tier | **RA-GRS** |
     | Purchase model | **vCore** |
     | Service tier | **General Purpose** |
     | Compute tier | **Provisioned** |
-    | Generation | **Gen5** |
-    | Instance | **4 vCores** |
+    | Hardware Type | **Standard-series (Gen5)** |
+    | Instance | **4 vCore** |
+    | Disaster Recovery | **Primary or Geo replica** |
+    | Compute | **Locally Redundant** |
     | Storage | **32 GB** |
+    | Backup storage | **RA-GRS** |
 
 1. Review the monthly cost estimate displayed for the SQL Database.
 
@@ -46,14 +48,14 @@ This exercise will take approximately **30** minutes.
     | --- | --- |
     | Region | **East US** (same as database) |
     | Operating System | **Windows** |
-    | Type | **Virtual Machines** |
+    | Type | **SQL Server** |
     | Tier | **Standard** |
     | Instance | **D4s v3** (4 vCPUs, 16 GB RAM) |
     | Virtual Machines | **1** |
+    | License | **SQL Standard** |
 
-1. Under **Storage**, add:
-   - OS Disk: **Premium SSD**, **128 GB**
-   - Data Disk: **Premium SSD**, **1 TB** (for SQL Server data)
+1. Expand **Managed Disks**, and add:
+   - Tier: **Premium SSD**, **128 GB**
 
 ## Add storage for backups
 
@@ -63,12 +65,13 @@ This exercise will take approximately **30** minutes.
     | Property | Value |
     | --- | --- |
     | Region | **East US** |
-    | Type | **General Purpose v2** |
-    | Redundancy | **Locally-redundant storage (LRS)** |
-    | Storage amount | **1 TB** |
-    | Tier | **Hot** |
-
-## Review and compare costs
+    | Type | **Block Blob Storage** |
+    | Performance | **Standard** |
+    | Storage Account Type | **General Purpose V2** |
+    | File Structure | **Flat Namespace** |
+    | Access tier | **Hot** |
+    | Redundancy | **LRS** |
+    | Capacity | **1 TB** |
 
 ## Review and compare costs
 
@@ -94,3 +97,4 @@ This exercise will take approximately **30** minutes.
 1. Note how changing these options affects your overall monthly estimate.
 
 You've used the Azure Pricing Calculator to estimate costs for migrating Adatum Corporation's Accounting server and its associated databases to different Azure services. This gives you a foundation for comparing infrastructure-as-a-service (IaaS) vs. platform-as-a-service (PaaS) options and planning your migration budget.
+
