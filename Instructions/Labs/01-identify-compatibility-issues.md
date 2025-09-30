@@ -77,7 +77,7 @@ You'll run the Azure migration extension for Azure Data Studio, run the compatib
 
 1. In the Azure SQL Migration dashboard, select **Migrate to Azure SQL** to open the migration wizard.
 
-1. On **Step 1: Databases for assessment**, select the *AdventureWorks* database, then select **Next**.
+1. On **Step 1: Databases for assessment**, select **No** on *"Do you want to track the migration process in Azure portal?"*, then select the *AdventureWorksLT* database. Select **Next**.
 
 1. On **Step 2: Assessment results and SKU recommendations**, wait for the assessment to complete and select **Next**.
 
