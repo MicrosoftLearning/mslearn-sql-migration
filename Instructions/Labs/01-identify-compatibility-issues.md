@@ -7,7 +7,7 @@ lab:
 
 In our scenario, you've been asked to assess the readiness of a legacy SQL Server database for migration to Azure SQL Database. Your task is to perform an assessment of their legacy database and identify any potential compatibility issues or changes that need to be made before migration. You should also review the schema of the database and identify any features or configurations that aren't supported in Azure SQL Database.
 
-This exercise will take approximately **15** minutes.
+This exercise will take approximately **20** minutes.
 
 > **Note**: To complete this exercise, you need access to an Azure subscription to create Azure resources. If you don't have an Azure subscription, create a [free account](https://azure.microsoft.com/free/?azure-portal=true) before you begin.
 
@@ -16,12 +16,12 @@ This exercise will take approximately **15** minutes.
 To run this exercise, ensure you have the following in place before proceeding:
 
 - You’ll need SQL Server 2019 or a later version, along with the [**AdventureWorksLT**](https://learn.microsoft.com/sql/samples/adventureworks-install-configure#download-backup-files) lightweight database that is compatible with your specific SQL Server instance.
-- Download and install [Azure Data Studio](https://learn.microsoft.com/sql/azure-data-studio/download-azure-data-studio). If it's already installed, update it to make sure that you’re using the most recent version.
+- An Azure account with an active subscription. [Create an account for free](https://azure.microsoft.com/free/?azure-portal=true).
 - A SQL user with read access to the source database.
 
 ## Restore a SQL Server database and run a command
 
-1. Select the Windows Start button and type SSMS. Select **Microsoft SQL Server Management Studio 18** from the list.  
+1. Select the Windows Start button and type SSMS. Select **Microsoft SQL Server Management Studio** from the list.  
 
 1. When SSMS opens, notice that the **Connect to Server** dialog will be pre-populated with the default instance name. Select **Connect**.
 
@@ -49,72 +49,105 @@ To run this exercise, ensure you have the following in place before proceeding:
 ALTER TABLE [SalesLT].[Customer] ADD [Next] VARCHAR(5);
 ```
 
-## Install and launch the Azure migration extension for Azure Data Studio
+## Set up Azure Database Migration Service
 
-Follow these steps to install the migration extension. If Azure migration extension is already installed, you can skip these steps.
+Azure Database Migration Service (DMS) enables seamless migration of your databases to Azure. In this section, you'll create a DMS instance and set up a self-hosted integration runtime to connect to your on-premises SQL Server.
 
-1. Open the extensions manager in Azure Data Studio. s
+1. Open a browser and navigate to the [Azure portal](https://portal.azure.com).
 
-1. Search for ***Azure SQL Migration***, and install the extension. Once you install it, the Azure SQL Migration extension is in the list of installed extensions.
+1. In the Azure portal search bar, type **Azure Database Migration Services** and select it from the results.
 
-1. Select the **Connections** icon, and then select **New Connection**. 
+1. Select **+ Create** to create a new Database Migration Service.
 
-1. In the new **Connection** tab, type the server name. Select **Optional (False)** for the **Encrypt** option.
+1. On the **Select migration scenario and Database Migration Service** page, select the following:
+    - **Source server type**: SQL Server
+    - **Target server type**: Azure SQL Database
+    - Select **Database Migration Service**, and then select **Select**.
 
-1. Select **Connect**. 
+1. On the **Create Migration Service** page, fill in the following details:
+    - **Subscription**: Select your Azure subscription.
+    - **Resource group**: Create a new resource group or select an existing one.
+    - **Location**: Select the region closest to you.
+    - **Service name**: Enter `AdventureWorksDMS`.
 
-1. To launch the Azure migration extension, simply right-click on the name of the source instance and select **Manage**. 
+1. Select **Review + Create**, and then select **Create**. Wait for the deployment to complete.
 
-1. In the server menu, under **General**, select **Azure SQL Migration**. This will take you to the main page of the Azure SQL Migration extension.
+1. Once created, navigate to your Database Migration Service resource.
 
-    > **Note**: If you're unable to see the **Azure SQL Migration** option in the server menu, or if the Azure SQL Migration page doesn't load, reopen Azure Data Studio.
+1. Under **Settings**, select **Integration runtime**.
+
+1. Select **Configure integration runtime** and copy one of the **Authentication keys** displayed.
+
+1. Select the **Download and install integration runtime** link to download the installer.
+
+1. Run the installer on your local machine (where SQL Server is installed or on a machine that has network access to SQL Server). Follow the installation wizard using default settings.
+
+1. When Microsoft Integration Runtime Configuration Manager opens after installation, paste the **Authentication key** you copied earlier and select **Register**.
+
+1. Select **Finish** to complete the registration. Wait a few moments for the status to show as **Connected** in the Azure portal.
+
+    > **Note**: The self-hosted integration runtime enables Azure Database Migration Service to securely connect to your on-premises SQL Server instance.
 
 ## Run the compatibility assessment
 
 The compatibility assessment helps identify potential migration issues and provides detailed guidance on how to resolve them before the migration process begins. This can save significant time and resources. 
 
-You'll run the Azure migration extension for Azure Data Studio, run the compatibility assessment, and then view the results for an Azure SQL Database target.
+You'll use Azure Database Migration Service in the Azure portal to run the compatibility assessment and view the results for an Azure SQL Database target.
 
-1. In the Azure SQL Migration dashboard, select **Migrate to Azure SQL** to open the migration wizard.
+1. In your Azure Database Migration Service resource, select **+ New Migration** from the overview page.
 
-1. On **Step 1: Databases for assessment**, select **No** on *"Do you want to track the migration process in Azure portal?"*, then select the *AdventureWorksLT* database. Select **Next**.
+1. On the **Select migration scenario** page, select:
+    - **Source server type**: SQL Server
+    - **Target server type**: Azure SQL Database
+    - **Migration mode**: Offline migration
+    - Select **Select**.
 
-1. On **Step 2: Assessment results and SKU recommendations**, wait for the assessment to complete and select **Next**.
+1. On the **Source details** tab, enter your source SQL Server connection details:
+    - **Source SQL Server instance name**: Enter the name of your SQL Server instance (e.g., `localhost` or the machine name).
+    - **Authentication type**: Select the appropriate authentication.
+    - **Username** and **Password**: Enter credentials with read access to the database.
+
+1. Select **Next: Connect to source SQL Server** and verify the connection is successful.
+
+1. On the **Select databases** tab, select the *AdventureWorksLT* database and select **Next**.
+
+1. On the **Select target** tab, select your Azure subscription and an existing Azure SQL Database (or create one for this assessment). Select **Next**.
+
+1. On the **Summary** tab, review the compatibility assessment results before proceeding with the migration.
 
 ## Review the assessment results
 
-You are now able to review the recommendations generated by the migration extension.
+You are now able to review the compatibility findings generated by the Azure Database Migration Service.
 
-1. On **Step 3: Target platform & assessment results**, select **Azure SQL Database** as the target platform.
-
-1. Select the *AdventureWorks* database. Take a moment to review the assessment results on the right side.
+1. On the **Summary** tab, review the **Assessment results** section. Select the *AdventureWorksLT* database to view detailed findings.
     
-    > **Note:** We can see that the `Next` column that was added previously was flagged, as it may lead to an error in Azure SQL Database.
+    > **Note:** We can see that the `Next` column that was added previously was flagged, as it may lead to an error in Azure SQL Database. The column name `NEXT` is a reserved keyword.
 
-1. Choose **Azure SQL Managed Instance** instead as the **Azure SQL Database** target platform.
+1. Review the list of compatibility issues. Each issue includes:
+    - **Issue description**: What the problem is.
+    - **Recommendation**: How to resolve it before migration.
+    - **Affected objects**: The specific database objects impacted.
+
+1. Cancel the migration wizard and go back to the DMS overview. Start a new migration but this time select **Azure SQL Managed Instance** as the target type.
     
     > **Note:** The `Next` column is no longer flagged for Azure SQL Managed Instance, why is that? 
     >
-    >This means that the `Next` column can be safely used on Azure SQL Managed Instance.
-
-1. Select **Save assessment report** to save the report in a JSON format.
-
-1. Take a moment to review the JSON file, and its properties.
+    >This means that the `Next` column can be safely used on Azure SQL Managed Instance because it has broader compatibility with SQL Server features.
 
 ## Fix the issue
 
-1. Run the following T-SQL command on the *AdventureWorks* database.
+1. Run the following T-SQL command on the *AdventureWorksLT* database.
 
     ```sql
     ALTER TABLE [SalesLT].[Customer] DROP COLUMN [Next];
     ```
 
-1. Go back to the **Step 2: Assessment results and SKU recommendations** page in the wizard, and select **Refresh assessment**.
+1. Go back to your Azure Database Migration Service in the Azure portal.
 
-1. Select **Azure SQL Database** as the target platform.
+1. Start a new migration for the *AdventureWorksLT* database with **Azure SQL Database** as the target type.
 
-1. Select the *AdventureWorks* database.
+1. Review the assessment results on the **Summary** tab.
 
-    > **Note:** The database is ready to migrate.
+    > **Note:** The database is now ready to migrate. No compatibility issues are blocking the migration to Azure SQL Database.
 
 You've learned how to assess the readiness of a SQL Server database for migration to Azure SQL Database. By addressing compatibility issues and making essential schema changes or reporting them, you've taken an important step in mitigating potential technical issues that could arise in the future on Azure SQL Database.
