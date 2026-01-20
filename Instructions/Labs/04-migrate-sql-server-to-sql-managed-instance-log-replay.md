@@ -22,13 +22,13 @@ To run this exercise, you need:
 | **Target server** | An Azure SQL Managed Instance. We'll create it during this exercise.|
 | **Source server** | An instance of SQL Server 2019 or a [newer version](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) installed on a server of your preference. |
 | **Source database** | The lightweight [AdventureWorks](https://learn.microsoft.com/sql/samples/adventureworks-install-configure) database to be restored on the SQL Server instance. |
-| **Azure Data Studio** | Install [Azure Data Studio](https://learn.microsoft.com/sql/azure-data-studio/download-azure-data-studio) in the same server where the source database is located. If it's already installed, update it to make sure that you’re using the most recent version. |
+| **Microsoft SQL Server Management Studio** | Install [Microsoft SQL Server Management Studio](https://learn.microsoft.com/sql/ssms/download-sql-server-management-studio-ssms) in the same server where the source database is located. If it's already installed, update it to make sure that you’re using the most recent version. |
 
 ## Restore a SQL Server database
 
 Let's restore the *AdventureWorksLT* database on the SQL Server instance. This database serves as the source database for this lab exercise. You can skip these steps if the database is already restored.
 
-1. Select the Windows Start button and type SSMS. Select **Microsoft SQL Server Management Studio 18** from the list.  
+1. Select the Windows Start button and type SSMS. Select **Microsoft SQL Server Management Studio** from the list.  
 
 1. When SSMS opens, notice that the **Connect to Server** dialog pre-populates with the default instance name. Select **Connect**.
 
