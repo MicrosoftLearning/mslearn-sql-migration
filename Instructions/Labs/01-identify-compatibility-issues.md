@@ -111,7 +111,14 @@ You'll use Azure Database Migration Service in the Azure portal to run the compa
 
 1. On the **Select databases** tab, select the *AdventureWorksLT* database and select **Next**.
 
-1. On the **Select target** tab, select your Azure subscription and an existing Azure SQL Database (or create one for this assessment). Select **Next**.
+1. On the **Select target** tab, select your Azure subscription and select an Azure SQL Database as the target. If you don't have one, use the following steps to create it:
+
+    1. In a new browser tab, go to the [Azure portal](https://portal.azure.com) and search for **SQL databases**. Select **+ Create**.
+    1. Select the same **Resource group** you used for DMS, enter `AdventureWorksTarget` as the **Database name**, and under **Server**, select **Create new**. Enter a unique server name, set **Location** to the same region as DMS, select **Use SQL authentication**, and provide an admin login and password. Select **OK**.
+    1. On the **Compute + storage** setting, select **Configure**, and choose the **Basic** or **Free** tier for cost savings. Select **Review + create**, then **Create**. Wait for the deployment to complete.
+    1. Return to the DMS migration wizard tab and select your newly created Azure SQL Database.
+
+    Select **Next**.
 
 1. On the **Summary** tab, review the compatibility assessment results before proceeding with the migration.
 
