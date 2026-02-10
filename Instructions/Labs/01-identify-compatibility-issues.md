@@ -108,8 +108,8 @@ Before running the compatibility assessment, you need to create a target Azure S
         - **Server admin login:** sqladmin
         - **Password:** &lt;Your password&gt;
         - **Confirm password:** &lt;Your password&gt;
-        
-            **Note:** Make note of this server name, and credentials. You'll use it in subsequent tasks.
+
+        > **Note:** Make note of this server name, and credentials. You'll use it in subsequent tasks.
 
     - **Want to use SQL elastic pool?** No
     - **Workload environment:** Production
