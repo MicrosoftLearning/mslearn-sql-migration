@@ -166,7 +166,7 @@ You'll use Azure Database Migration Service in the Azure portal to run the compa
     - **Resource group:** Select the resource group containing your Azure SQL Database.
     - **Azure SQL Database server:** Select the server you created earlier.
     - **Authentication type:** Select SQL authentication.
-    - **Username** and **Password:** Enter the credentials you specified when creating the server (e.g., sqladmin and your password).
+    - **Username** and **Password:** Enter the credentials you specified when creating the server (sqladmin for username and the password you created).
     - Select **Connect** and then select the *AdventureWorksLT* database as the target database.
     - Select **Next**.
 
