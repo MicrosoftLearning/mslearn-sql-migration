@@ -38,12 +38,12 @@ Let's restore the *AdventureWorksLT* database on the SQL Server instance. This d
 
     ```sql
     RESTORE DATABASE AdventureWorksLT
-    FROM DISK = 'C:\<FolderName>\AdventureWorksLT2019.bak'
+    FROM DISK = 'C:\<FolderName>\AdventureWorksLT2025.bak'
     WITH RECOVERY,
-          MOVE 'AdventureWorksLT2019_Data' 
-            TO 'C:\<FolderName>\AdventureWorksLT2019.mdf',
-          MOVE 'AdventureWorksLT2019_Log'
-            TO 'C:\<FolderName>\AdventureWorksLT2019.ldf';
+          MOVE 'AdventureWorksLT2025_Data' 
+            TO 'C:\<FolderName>\AdventureWorksLT2025.mdf',
+          MOVE 'AdventureWorksLT2025_Log'
+            TO 'C:\<FolderName>\AdventureWorksLT2025.ldf';
     ```
 
     > **Note**: Make sure you have the lightweight [AdventureWorks](https://learn.microsoft.com/sql/samples/adventureworks-install-configure#download-backup-files) backup file on the SQL Server machine before running the T-SQL command.
