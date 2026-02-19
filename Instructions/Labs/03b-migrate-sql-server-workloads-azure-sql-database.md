@@ -390,13 +390,13 @@ We're now ready to migrate the data. Follow these steps to perform an offline mi
         --migration-service "/subscriptions/<subscription-id>/resourceGroups/<resource-group>/providers/Microsoft.DataMigration/sqlMigrationServices/DMS-Migration-Service" \
         --scope "/subscriptions/<subscription-id>/resourceGroups/<resource-group>/providers/Microsoft.Sql/servers/<Target Azure SQL Server name>" \
         --source-database-name "AdventureWorksLT" \
+
         --source-sql-connection authentication="SqlAuthentication" data-source="<Source SQL Server IP or hostname>" encrypt-connection=true password="<Source SQL password>" trust-server-certificate=true user-name="<Source SQL username>" \
         --target-sql-connection authentication="SqlAuthentication" data-source="<Target server>.database.windows.net" encrypt-connection=true password="<Target SQL password>" user-name="sqladmin" \
-        --table-list "[SalesLT].[Address]" "[SalesLT].[Customer]" "[SalesLT].[Product]" "[SalesLT].[ProductCategory]" \
-        --migration-scope "SelectedTables"
+        --table-list "[SalesLT].[Address]" "[SalesLT].[Customer]" "[SalesLT].[Product]" "[SalesLT].[ProductCategory]"
     ```
 
-    > **Note:** The `--table-list` parameter specifies the four tables we want to migrate: *Address*, *Customer*, *Product*, and *ProductCategory*. The schema was already created manually, so only data will be migrated.
+    > **Note:** The `--table-list` parameter specifies the four tables we want to migrate: *Address*, *Customer*, *Product*, and *ProductCategory*. The schema was already created manually, so only data will be migrated. For `--sqldb-instance-name` and `--scope`, use only the server name (e.g., `test00881`), **not** the full FQDN (`test00881.database.windows.net`). The full FQDN is only used in `--target-sql-connection data-source`.
 
 ### Monitor the migration
 
