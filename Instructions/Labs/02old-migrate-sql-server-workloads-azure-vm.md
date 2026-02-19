@@ -1,8 +1,3 @@
----
-lab:
-    title: 'Migrate SQL Server databases to SQL Server on Azure Virtual Machine'
----
-
 # Migrate SQL Server databases to SQL Server on Azure Virtual Machine
 
 In this exercise, you'll learn how to migrate a SQL Server database to a SQL Server running on an Azure Virtual Machine using the Azure migration extension for Azure Data Studio. You'll start by installing and launching the Azure migration extension for Azure Data Studio. Then, you'll perform an online migration of a SQL Server database to a SQL Server running on an Azure Virtual Machine. You'll also learn how to monitor the migration process on the Azure portal and complete the cutover process to finalize the migration.
