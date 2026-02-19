@@ -1,7 +1,7 @@
 ﻿
 # Migrate SQL Server databases to Azure SQL Database
 
-In this exercise, you'll learn how to migrate specific tables from a SQL Server database to Azure SQL Database using Azure CLI and the Azure Database Migration Service (DMS). 
+In this exercise, you'll learn how to migrate specific tables from a SQL Server database to Azure SQL Database using the Azure Database Migration Service (DMS). 
 
 > **Important**: To avoid impacting migration duration—which can be affected by network and connectivity constraints—we will migrate only a few tables (*Customer*, *ProductCategory*, *Product*, and *Address*) as an example. The same process can be used to migrate the entire schema when needed.
 
@@ -19,9 +19,8 @@ To run this exercise, you need:
 | **Target database** | A database on Azure SQL Database server. We'll create it during this exercise.|
 | **Source server** | An instance of SQL Server 2019 or a [newer version](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) installed on a server of your preference. |
 | **Source database** | The lightweight [AdventureWorks](https://learn.microsoft.com/sql/samples/adventureworks-install-configure) database to be restored on the SQL Server instance. |
-| **Azure CLI** | Install the [Azure CLI](https://learn.microsoft.com/cli/azure/install-azure-cli) (version 2.51.0 or later). After installation, install the **datamigration** extension by running ``az extension add --name datamigration``. |
+| **Azure Cloud Shell** | We'll use [Azure Cloud Shell](https://learn.microsoft.com/azure/cloud-shell/overview) (PowerShell) from the Azure portal to run Azure CLI commands. No local installation is required. |
 | **SSMS** | Install [SQL Server Management Studio (SSMS)](https://learn.microsoft.com/sql/ssms/download-sql-server-management-studio-ssms) to run T-SQL scripts against the source and target databases. |
-| **Microsoft.DataMigration** resource provider | Make sure the subscription is registered to use the **Microsoft.DataMigration** namespace. To learn how to perform a resource provider registration, see [Register the resource provider](https://learn.microsoft.com/azure/dms/quickstart-create-data-migration-service-portal#register-the-resource-provider). |
 | **Microsoft Integration runtime** | Install [Microsoft Integration Runtime](https://aka.ms/sql-migration-shir-download). |
 
 ## Restore a SQL Server database
@@ -317,50 +316,64 @@ Let's manually create the schema for the target tables before beginning the data
     SELECT TABLE_SCHEMA, TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'SalesLT';
     ```
 
-## Perform an offline migration using Azure CLI (DMS)
+## Enable SQL Server authentication and create a login
 
-We're now ready to migrate the data. Follow these steps to perform an offline migration using Azure CLI and the Azure Database Migration Service.
+Ensure SQL Server authentication is enabled on the source SQL Server and create a login that will be used by the migration service.
 
-### Log in to Azure and set your subscription
+1. In SSMS, connect to your source SQL Server instance. In **Object Explorer**, right-select the server name and select **Properties**.
 
-1. Open a command prompt or PowerShell window and log in to Azure:
+1. On the **Server Properties** page, select the **Security** page. Under **Server authentication**, select **SQL Server and Windows Authentication mode**, then select **OK**.
 
-    ```bash
-    az login
+1. Restart the SQL Server service for the change to take effect. You can restart it from **SQL Server Configuration Manager** or the **Services** console.
+
+1. After restarting the SQL Server service, reconnect to the source SQL Server in SSMS and run the following script to create a **sqladmin** login and grant it the required permissions:
+
+    ```sql
+    -- Create the sqladmin login
+    CREATE LOGIN sqladmin WITH PASSWORD = '<Your password>';
+
+    -- Grant sysadmin role to sqladmin
+    ALTER SERVER ROLE sysadmin ADD MEMBER sqladmin;
     ```
 
-1. If you have multiple subscriptions, select the appropriate one:
+    > **Note:** Make note of this login and password. You'll need them later when configuring the source connection during the migration.
 
-    ```bash
-    az account set --subscription "<Your subscription name or ID>"
-    ```
+## Perform an offline migration using Azure DMS
+
+We're now ready to migrate the data. Follow these steps to perform an offline migration using the Azure Database Migration Service.
 
 ### Create an Azure Database Migration Service instance
 
-1. Create an Azure Database Migration Service instance if you don't already have one. Replace the placeholder values with your own:
+1. In the Azure portal, select the **Cloud Shell** icon in the top toolbar. Select **PowerShell** as the shell type. If prompted, select **No storage account required** and choose your subscription, then select **Apply**.
 
-    ```bash
-    az datamigration sql-service create \
-        --resource-group "<Your resource group>" \
-        --sql-migration-service-name "DMS-Migration-Service" \
+1. Create an Azure Database Migration Service instance. Replace the placeholder values with your own:
+
+    ```powershell
+    az datamigration sql-service create `
+        --resource-group "<Your resource group>" `
+        --sql-migration-service-name "DMS-Migration-Service" `
         --location "<Your region>"
     ```
 
+    > **Note:** If prompted to install the **datamigration** extension, select **Y** to confirm. The command will continue after the extension is installed.
+
 1. Wait for the service to be created. You can verify the status by running:
 
-    ```bash
-    az datamigration sql-service show \
-        --resource-group "<Your resource group>" \
+    ```powershell
+    az datamigration sql-service show `
+        --resource-group "<Your resource group>" `
         --sql-migration-service-name "DMS-Migration-Service"
     ```
 
 ### Register the self-hosted Integration Runtime
 
-1. Retrieve the authentication keys for the DMS service:
+1. If you haven't already, download and install the [Microsoft Integration Runtime](https://aka.ms/sql-migration-shir-download) on the machine that has access to your source SQL Server instance. Make sure to download the latest version available.
 
-    ```bash
-    az datamigration sql-service list-auth-key \
-        --resource-group "<Your resource group>" \
+1. In the Cloud Shell, retrieve the authentication keys for the DMS service:
+
+    ```powershell
+    az datamigration sql-service list-auth-key `
+        --resource-group "<Your resource group>" `
         --sql-migration-service-name "DMS-Migration-Service"
     ```
 
@@ -370,9 +383,9 @@ We're now ready to migrate the data. Follow these steps to perform an offline mi
 
 1. Verify the Integration Runtime is connected to the DMS service by checking the node status:
 
-    ```bash
-    az datamigration sql-service list-integration-runtime-metric \
-        --resource-group "<Your resource group>" \
+    ```powershell
+    az datamigration sql-service list-integration-runtime-metric `
+        --resource-group "<Your resource group>" `
         --sql-migration-service-name "DMS-Migration-Service"
     ```
 
@@ -380,36 +393,60 @@ We're now ready to migrate the data. Follow these steps to perform an offline mi
 
 ### Start the database migration
 
-1. Start the offline migration with the following command. Replace the placeholder values with your environment-specific details:
+1. In the Azure portal, navigate to your **DMS-Migration-Service** resource. On the overview page, select **+ New migration**.
 
-    ```bash
-    az datamigration sql-db create \
-        --resource-group "<Your resource group>" \
-        --sqldb-instance-name "<Target Azure SQL Server name>" \
-        --target-db-name "AdventureWorksLT" \
-        --migration-service "/subscriptions/<subscription-id>/resourceGroups/<resource-group>/providers/Microsoft.DataMigration/sqlMigrationServices/DMS-Migration-Service" \
-        --scope "/subscriptions/<subscription-id>/resourceGroups/<resource-group>/providers/Microsoft.Sql/servers/<Target Azure SQL Server name>" \
-        --source-database-name "AdventureWorksLT" \
+1. On **Select new migration scenario**, enter the following details:
+    - **Source server type:** SQL Server
+    - **Target server type:** Azure SQL Database
+    - **Migration mode:** Offline
+    - Select **Select**.
 
-        --source-sql-connection authentication="SqlAuthentication" data-source="<Source SQL Server IP or hostname>" encrypt-connection=true password="<Source SQL password>" trust-server-certificate=true user-name="<Source SQL username>" \
-        --target-sql-connection authentication="SqlAuthentication" data-source="<Target server>.database.windows.net" encrypt-connection=true password="<Target SQL password>" user-name="sqladmin" \
-        --table-list "[SalesLT].[Address]" "[SalesLT].[Customer]" "[SalesLT].[Product]" "[SalesLT].[ProductCategory]"
-    ```
+1. On **Step 1: Source details**, configure the following:
+    - **Is your source SQL Server instance tracked in Azure?**: Select **No**.
+    - **Source Infrastructure Type:** Select **Virtual Machine**.
+    - Under **Select SQL Server instance details**, enter:
+        - **Subscription:** Select your subscription.
+        - **Resource group:** Select your resource group.
+        - **Location:** Select the location of your source SQL Server.
+        - **SQL Server Instance Name:** Enter your source SQL Server instance name.
+    - Select **Next: Connect to source SQL Server >>**.
 
-    > **Note:** The `--table-list` parameter specifies the four tables we want to migrate: *Address*, *Customer*, *Product*, and *ProductCategory*. The schema was already created manually, so only data will be migrated. For `--sqldb-instance-name` and `--scope`, use only the server name (e.g., `test00881`), **not** the full FQDN (`test00881.database.windows.net`). The full FQDN is only used in `--target-sql-connection data-source`.
+1. On **Step 2: Connect to source SQL Server**, enter the following details:
+    - **Source server name:** Enter the hostname of your source SQL Server.
+    - **Authentication type:** SQL Authentication
+    - **User name:** &lt;Source SQL username&gt;
+    - **Password:** &lt;Source SQL password&gt;
+    - Under **Connection properties**, uncheck **Encrypt connection** and **Trust server certificate**.
+    - Select **Next: Select databases for migration**.
+
+1. On **Step 3: Select databases for migration**, select the **AdventureWorksLT** database. Select **Next: Connect to target Azure SQL Database**.
+
+1. On **Step 4: Connect to target Azure SQL Database**, enter the target server details:
+    - **Azure SQL Database server name:** &lt;Target server&gt;.database.windows.net
+    - **Authentication type:** SQL Authentication
+    - **User name:** sqladmin
+    - **Password:** &lt;Your password&gt;
+    - Select **Connect**, and then select **Next: Map source and target databases**.
+
+1. On **Step 5: Map source and target databases**, verify that the source database **AdventureWorksLT** is mapped to the target database **AdventureWorksLT**. Select **Next: Select database tables to migrate**.
+
+1. On the **Select database tables to migrate** page, expand the **AdventureWorksLT** section. Uncheck the **Migrate missing schema** option because the schema has already been created on the target. Select the following four tables:
+     - **[SalesLT].[Address]**
+     - **[SalesLT].[Customer]**
+     - **[SalesLT].[Product]**
+     - **[SalesLT].[ProductCategory]**
+
+    > **Note:** Tables with a status of **Target table does not exist** require the **Migrate missing schema** option to be checked, or the schema to be created manually beforehand.
+
+1. Select **Next: Database migration summary >>**.
+
+1. On the **Database migration summary** page, review the migration details and then select **Start migration**.
 
 ### Monitor the migration
 
-1. Monitor the migration status by running:
+1. On the DMS service page, select the migration to view its progress.
 
-    ```bash
-    az datamigration sql-db show \
-        --resource-group "<Your resource group>" \
-        --sqldb-instance-name "<Target Azure SQL Server name>" \
-        --target-db-name "AdventureWorksLT"
-    ```
-
-1. Repeat the above command until the **migrationStatus** shows **Succeeded**. You can also check the status in the Azure portal by navigating to the Azure SQL Database resource and selecting **Migration** under **Data management**.
+1. Wait until the migration status shows **Succeeded**. You can select the source database name to view the migration details and progress.
 
     > **Note:** The migration may take a few minutes to complete depending on network connectivity and the amount of data.
 
@@ -428,7 +465,7 @@ We're now ready to migrate the data. Follow these steps to perform an offline mi
     SELECT 'Address' AS TableName, COUNT(*) AS [RowCount] FROM [SalesLT].[Address];
     ```
 
-You've successfully performed a selective migration of specific tables from a SQL Server database to Azure SQL Database using Azure CLI and the Azure Database Migration Service (DMS). You also learned how to monitor the migration process via the command line.
+You've successfully performed a selective migration of specific tables from a SQL Server database to Azure SQL Database using the Azure Database Migration Service (DMS). You also learned how to monitor the migration process through the Azure portal.
 
 ## Clean up
 
