@@ -57,7 +57,7 @@ Azure Database Migration Service (DMS) enables seamless migration of your databa
 
 1. In the Azure portal search bar, type **Azure Database Migration Services** and select it from the results.
 
-1. Select **+ Create** to create a new Database Migration Service.
+1. Select **Start a new migration** to create a new Database Migration Service.
 
 1. On the **Select migration scenario and Database Migration Service** page, select the following:
     - **Source server type**: SQL Server
@@ -88,6 +88,14 @@ Azure Database Migration Service (DMS) enables seamless migration of your databa
 
     > **Note**: The self-hosted integration runtime enables Azure Database Migration Service to securely connect to your on-premises SQL Server instance.
 
+## Create SQL database
+
+If you don't have one, use the following steps to create a SQL databse in your Azure Portall:
+
+1. In a new browser tab, go to the [Azure portal](https://portal.azure.com) and search for **SQL databases**. Select **+ Create**.
+1. Select the same **Resource group** you used for DMS, enter `AdventureWorksTarget` as the **Database name**, and under **Server**, select **Create new**. Enter a unique server name, set **Location** to the same region as DMS, select **Use SQL authentication**, and provide an admin login and password. Select **OK**.
+1. On the **Compute + storage** setting, select **Configure**, and choose the **Basic** or **Free** tier for cost savings. Select **Review + create**, then **Create**. Wait for the deployment to complete.
+
 ## Run the compatibility assessment
 
 The compatibility assessment helps identify potential migration issues and provides detailed guidance on how to resolve them before the migration process begins. This can save significant time and resources. 
@@ -102,23 +110,24 @@ You'll use Azure Database Migration Service in the Azure portal to run the compa
     - **Migration mode**: Offline migration
     - Select **Select**.
 
-1. On the **Source details** tab, enter your source SQL Server connection details:
-    - **Source SQL Server instance name**: Enter the name of your SQL Server instance (e.g., `localhost` or the machine name).
-    - **Authentication type**: Select the appropriate authentication.
-    - **Username** and **Password**: Enter credentials with read access to the database.
+1. On the **Source details** tab:
+   - **Is your source SQL Server instance tracked in Azure**: Select **No** (unless using Azure VM or Azure Arc).
+   - **Source infrastructure type**: Select **Other**.
+   - **Source SQL Server instance name**: Enter the exact SQL Server instance name
+     (e.g. `localhost`, `localhost\SQLEXPRESS`, or `(localdb)\MSSQLLocalDB`).
+
+1. On the **Connect to source SQL Server** tab:
+   - **Source server name**: Use the same value as the SQL Server instance name.
+   - **Authentication type**: Prefer **SQL Authentication**.
+   - **Username and Password**: Use an account with at least `db_owner` permissions on the source database.
 
 1. Select **Next: Connect to source SQL Server** and verify the connection is successful.
 
 1. On the **Select databases** tab, select the *AdventureWorksLT* database and select **Next**.
 
-1. On the **Select target** tab, select your Azure subscription and select an Azure SQL Database as the target. If you don't have one, use the following steps to create it:
+1. On the **Select target** tab, select your Azure subscription and select an Azure SQL Database as the target.
 
-    1. In a new browser tab, go to the [Azure portal](https://portal.azure.com) and search for **SQL databases**. Select **+ Create**.
-    1. Select the same **Resource group** you used for DMS, enter `AdventureWorksTarget` as the **Database name**, and under **Server**, select **Create new**. Enter a unique server name, set **Location** to the same region as DMS, select **Use SQL authentication**, and provide an admin login and password. Select **OK**.
-    1. On the **Compute + storage** setting, select **Configure**, and choose the **Basic** or **Free** tier for cost savings. Select **Review + create**, then **Create**. Wait for the deployment to complete.
-    1. Return to the DMS migration wizard tab and select your newly created Azure SQL Database.
-
-    Select **Next**.
+1. Select **Next**.
 
 1. On the **Summary** tab, review the compatibility assessment results before proceeding with the migration.
 
