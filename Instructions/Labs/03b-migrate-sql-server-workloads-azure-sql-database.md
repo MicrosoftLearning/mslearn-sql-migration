@@ -1,4 +1,17 @@
-﻿
+---
+lab:
+  title: Migrate SQL Server databases to Azure SQL Database
+  description: "\uFEFF"
+  duration: 45 minutes
+  level: 500
+  islab: true
+  primarytopics:
+  - Azure
+  - Azure SQL Database
+  - SQL Server
+---
+
+
 # Migrate SQL Server databases to Azure SQL Database
 
 In this exercise, you'll learn how to migrate specific tables from a SQL Server database to Azure SQL Database using the Azure Database Migration Service (DMS). 
