@@ -1,6 +1,14 @@
 ---
 lab:
-    title: 'Compare Azure costs for migration'
+  title: Compare Azure costs for migration
+  description: The Azure Pricing Calculator is a useful tool that you can use during
+    a data platform modernization project to estimate the costs of different Azure
+    services and migration approaches.
+  duration: 52 minutes
+  level: 200
+  islab: true
+  primarytopics:
+  - Azure
 ---
 
 # Compare Azure costs for migration
