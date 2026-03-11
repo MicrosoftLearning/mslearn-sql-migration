@@ -1,6 +1,14 @@
 ---
 lab:
-    title: 'Identify compatibility issues for SQL migration'
+  title: Identify compatibility issues for SQL migration
+  description: In our scenario, you've been asked to assess the readiness of a legacy SQL Server database for migration to Azure SQL Database. Your task is to perform an assessment of their legacy database and identify any potential compatibility issues or changes that need to be made before migration. You should also review the schema of the database and identify any features or configurations that aren't supported in Azure SQL Database.
+  duration: 100 minutes
+  level: 200
+  islab: true
+  primarytopics:
+    - Azure
+    - Azure SQL Database
+    - SQL Server
 ---
 
 # Identify compatibility issues for SQL migration
