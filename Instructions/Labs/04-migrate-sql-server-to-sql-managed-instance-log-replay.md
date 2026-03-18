@@ -1,6 +1,15 @@
 ---
 lab:
     title: 'Migrate SQL Server databases to Azure SQL Managed Instance by using Log Replay Service'
+    description: In this exercise, you'll learn how to migrate a SQL Server database to Azure SQL Managed Instance by using Log Replay Service.
+    level: 300
+    duration: 45 minutes
+    islab: true
+    primarytopics: 
+        - Azure
+        - Azure SQL Managed Instance
+        - SQL Server Migration
+        - Log Replay Service
 ---
 
 # Migrate SQL Server databases to Azure SQL Managed Instance by using Log Replay Service

@@ -1,6 +1,14 @@
 ---
 lab:
     title: 'Migrate SQL Server databases to Azure SQL Database'
+    description: In this exercise, you'll learn how to migrate specific tables from a SQL Server database to Azure SQL Database using the Azure migration extension for Azure Data Studio.
+    level: 300
+    duration: 45 minutes
+    islab: true
+    primarytopics: 
+        - Azure
+        - Azure SQL Database
+        - SQL Server Migration
 ---
 
 # Migrate SQL Server databases to Azure SQL Database

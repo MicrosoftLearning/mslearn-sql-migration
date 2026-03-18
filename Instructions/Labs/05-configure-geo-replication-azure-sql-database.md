@@ -1,6 +1,14 @@
 ---
 lab:
     title: 'Configure geo-replication for Azure SQL Database'
+    description: In this exercise, you'll learn how to enable geo-replication for an Azure SQL Database and perform a failover to a secondary region.
+    level: 300
+    duration: 30 minutes
+    islab: true
+    primarytopics: 
+        - Azure
+        - Azure SQL Database
+        - Geo-Replication
 ---
 
 # Configure geo-replication for Azure SQL Database
