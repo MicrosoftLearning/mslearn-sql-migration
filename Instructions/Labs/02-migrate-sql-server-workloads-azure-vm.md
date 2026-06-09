@@ -1,15 +1,12 @@
 ---
 lab:
     title: 'Migrate SQL Server databases to SQL Server on Azure Virtual Machine'
-    description: In this exercise, you'll learn how to migrate a SQL Server database to a SQL Server running on an Azure Virtual Machine using the backup and restore method with Azure Blob Storage.
-    level: 300
-    duration: 45 minutes
-    islab: true
-    primarytopics: 
-        - Azure
-        - Azure Virtual Machine
-        - Azure Blob Storage
-        - SQL Server Migration
+    description: "In this exercise, you'll learn how to migrate a SQL Server database to a SQL Server running on an Azure Virtual Machine using the backup and restore method with Azure Blob Storage."
+    duration: 45  # duration in minutes
+    level: 300 # 100 basic concepts, 200 foundations, 300 practical usage, 400 advanced scenarios, 500 expert design
+    islab: true # if this is not a lab that should be listed in the catalog, set to false
+    status: 'released' # in-development or released
+    targetDate: '2099-01-01' # Set to the future date when you expect an in-development lab to be released
 ---
 
 # Migrate SQL Server databases to SQL Server on Azure Virtual Machine

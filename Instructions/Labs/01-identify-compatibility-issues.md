@@ -1,14 +1,12 @@
 ---
 lab:
     title: 'Identify compatibility issues for SQL migration'
-    description: In this exercise, you'll migrate a legacy SQL Server database to Azure SQL Database and identify compatibility issues.
-    level: 300
-    duration: 20 minutes
-    islab: true
-    primarytopics: 
-        - Azure
-        - Azure SQL Database
-        - SQL Server Migration
+    description: "In this exercise, you'll migrate a legacy SQL Server database to Azure SQL Database and identify compatibility issues."
+    duration: 20  # duration in minutes
+    level: 300 # 100 basic concepts, 200 foundations, 300 practical usage, 400 advanced scenarios, 500 expert design
+    islab: true # if this is not a lab that should be listed in the catalog, set to false
+    status: 'released' # in-development or released
+    targetDate: '2099-01-01' # Set to the future date when you expect an in-development lab to be released
 ---
 
 # Identify compatibility issues for SQL migration

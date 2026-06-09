@@ -1,14 +1,12 @@
 ---
 lab:
     title: 'Compare Azure costs for migration'
-    description: This excercise will help you estimate the costs of migrating to Azure by using the Azure Pricing Calculator.
-    level: 300
-    duration: 30 minutes
-    islab: true
-    primarytopics: 
-        - Azure
-        - Azure Cost Management
-        - Azure Pricing Calculator
+    description: 'This excercise will help you estimate the costs of migrating to Azure by using the Azure Pricing Calculator.'
+    duration: 30  # duration in minutes
+    level: 300 # 100 basic concepts, 200 foundations, 300 practical usage, 400 advanced scenarios, 500 expert design
+    islab: true # if this is not a lab that should be listed in the catalog, set to false
+    status: 'released' # in-development or released
+    targetDate: '2099-01-01' # Set to the future date when you expect an in-development lab to be released
 ---
 
 # Compare Azure costs for migration

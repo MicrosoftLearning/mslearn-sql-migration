@@ -1,14 +1,12 @@
 ﻿---
 lab:
     title: 'Migrate SQL Server databases to Azure SQL Database'
-    description: In this exercise, you'll learn how to migrate specific tables from a SQL Server database to Azure SQL Database using the Azure Database Migration Service (DMS).
-    level: 300
-    duration: 45 minutes
-    islab: true
-    primarytopics: 
-        - Azure
-        - Azure SQL Database
-        - Azure Database Migration Service
+    description: "In this exercise, you'll learn how to migrate specific tables from a SQL Server database to Azure SQL Database using the Azure Database Migration Service (DMS)."
+    duration: 45  # duration in minutes
+    level: 300 # 100 basic concepts, 200 foundations, 300 practical usage, 400 advanced scenarios, 500 expert design
+    islab: true # if this is not a lab that should be listed in the catalog, set to false
+    status: 'released' # in-development or released
+    targetDate: '2099-01-01' # Set to the future date when you expect an in-development lab to be released
 ---
 
 # Migrate SQL Server databases to Azure SQL Database
